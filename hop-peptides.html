@@ -32,7 +32,7 @@ nav{position:sticky;top:0;z-index:200;background:var(--cream);border-bottom:1px 
 .cart-dot{position:absolute;top:5px;right:5px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 
 /* ═══ FORMAT SECTION ═══ */
-.fmt-section{padding:88px 80px 60px;background:var(--cream)}
+.fmt-section{padding:88px 80px 60px;background:var(--cream);min-height:calc(100vh - 68px - 42px);display:flex;flex-direction:column;justify-content:center}
 .sec-ey{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--grey);text-transform:uppercase;margin-bottom:16px}
 .sec-ey::before{content:'—';color:var(--amber)}
 .fmt-section h1{font-size:clamp(36px,4vw,52px);font-weight:900;letter-spacing:-1.5px;margin-bottom:44px}
@@ -156,24 +156,24 @@ footer{background:var(--cream2);padding:56px 80px 0}
   <div class="sec-ey">RESEARCH PEPTIDES · UAE & GCC</div>
   <h1>Choose your format</h1>
   <div class="fmt-grid">
-    <a href="#" class="fmt-card" onclick="setFilter('vials');return false">
+    <a href="#" class="fmt-card" onclick="setFilter('vials');scrollToProducts();return false">
       <div class="fmt-img ab">
         <div class="fvial-box"><div class="box-tag">HOUSE OF PEPS</div><div class="fvial"></div></div>
       </div>
       <div class="fmt-foot"><span class="fn">Vials</span><div class="fmt-arr">→</div></div>
     </a>
-    <a href="#" class="fmt-card" onclick="setFilter('pens');return false">
+    <a href="#" class="fmt-card" onclick="setFilter('pens');scrollToProducts();return false">
       <div class="fmt-img lb"><div class="fpen"></div></div>
       <div class="fmt-foot"><span class="fn">Pens</span><div class="fmt-arr">→</div></div>
     </a>
-    <a href="#" class="fmt-card" onclick="setFilter('sprays');return false">
+    <a href="#" class="fmt-card" onclick="setFilter('sprays');scrollToProducts();return false">
       <div class="fmt-img lb"><div class="fspray"></div></div>
       <div class="fmt-foot"><span class="fn">Sprays</span><div class="fmt-arr">→</div></div>
     </a>
   </div>
 
   <!-- FILTER TOGGLE + GRID -->
-  <div class="prod-section" style="padding:0">
+  <div class="prod-section" id="prod-section" style="padding:0">
     <div class="filter-row">
       <button class="filter-btn active" data-f="all" onclick="setFilter('all')">All</button>
       <button class="filter-btn" data-f="vials" onclick="setFilter('vials')">Vials</button>
@@ -422,6 +422,9 @@ footer{background:var(--cream2);padding:56px 80px 0}
 
 <script>
 // Filter
+function scrollToProducts(){
+  document.getElementById('prod-section').scrollIntoView({behavior:'smooth'});
+}
 function setFilter(f){
   document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.toggle('active',b.dataset.f===f||(f==='all'&&b.dataset.f==='all'))});
   document.querySelectorAll('.prod-card').forEach(c=>{
