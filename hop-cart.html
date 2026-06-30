@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart — House of Peps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber: #B5622A;
+  --amber-l: #C97840;
+  --amber-pale: #F0E4D8;
+  --dark: #0D0D0D;
+  --dark2: #1A1A1A;
+  --cream: #F5F0EA;
+  --cream2: #EDE7DF;
+  --lime: #C8F135;
+  --grey: #6B6B6B;
+  --grey-l: #D4CFC9;
+  --navy: #1A2744;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); }
+
+/* ANNOUNCEMENT BAR */
+.anbar { background: var(--amber); color: #fff; overflow: hidden; white-space: nowrap; padding: 8px 0; font-size: 13px; font-weight: 500; }
+.ticker { display: inline-block; animation: ticker 30s linear infinite; }
+@keyframes ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+
+/* NAV */
+nav { background: #fff; border-bottom: 1px solid var(--grey-l); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-weight: 800; font-size: 15px; letter-spacing: 1px; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--dark); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--amber); }
+.nav-dropdown { position: relative; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: #fff; border: 1px solid var(--grey-l); border-radius: 8px; min-width: 180px; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.1); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 10px 16px; font-size: 13px; color: var(--dark); text-decoration: none; }
+.nav-dropdown-menu a:hover { background: var(--cream); color: var(--amber); }
+.nav-icons { display: flex; align-items: center; gap: 16px; }
+.nav-icon { cursor: pointer; position: relative; color: var(--dark); display: flex; align-items: center; }
+.nav-icon svg { width: 22px; height: 22px; }
+.cart-badge { position: absolute; top: -6px; right: -6px; background: var(--amber); color: #fff; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+/* PAGE HEADER */
+.page-header { background: var(--dark); color: #fff; text-align: center; padding: 24px 40px; }
+.page-header h1 { font-size: 28px; font-weight: 800; letter-spacing: 3px; }
+
+/* CART LAYOUT */
+.cart-container { max-width: 1200px; margin: 40px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 360px; gap: 40px; align-items: start; }
+
+/* CART TABLE */
+.cart-table-wrap { background: #fff; border: 1px solid var(--grey-l); border-radius: 12px; overflow: hidden; }
+.cart-table { width: 100%; border-collapse: collapse; }
+.cart-table th { background: var(--cream2); padding: 14px 16px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--grey); border-bottom: 1px solid var(--grey-l); }
+.cart-table td { padding: 20px 16px; border-bottom: 1px solid var(--grey-l); vertical-align: middle; font-size: 14px; }
+.cart-table tr:last-child td { border-bottom: none; }
+.product-cell { display: flex; align-items: center; gap: 14px; }
+.product-thumb { width: 64px; height: 64px; background: linear-gradient(135deg, var(--cream2), var(--amber-pale)); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--grey); }
+.product-name-link { color: var(--amber); text-decoration: none; font-weight: 600; font-size: 14px; }
+.product-name-link:hover { text-decoration: underline; }
+.qty-input { width: 60px; padding: 8px; border: 1px solid var(--grey-l); border-radius: 6px; text-align: center; font-size: 14px; font-family: 'DM Sans', sans-serif; }
+.remove-btn { background: none; border: none; color: var(--grey); cursor: pointer; font-size: 18px; padding: 4px 8px; border-radius: 4px; transition: color 0.2s; }
+.remove-btn:hover { color: #e53e3e; }
+.price-col { font-weight: 500; color: var(--dark); }
+.subtotal-col { font-weight: 700; color: var(--dark); }
+
+/* COUPON ROW */
+.coupon-row { display: flex; align-items: center; gap: 10px; padding: 20px 16px; border-top: 1px solid var(--grey-l); flex-wrap: wrap; }
+.coupon-input { flex: 1; min-width: 180px; padding: 10px 14px; border: 1px solid var(--grey-l); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; }
+.coupon-input:focus { border-color: var(--amber); }
+.btn-apply { padding: 10px 20px; background: var(--dark); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 0.5px; transition: background 0.2s; }
+.btn-apply:hover { background: var(--dark2); }
+.coupon-spacer { flex: 1; }
+.btn-update { padding: 10px 20px; background: transparent; color: var(--grey); border: 1px solid var(--grey-l); border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.btn-update:hover { border-color: var(--dark); color: var(--dark); }
+
+/* CART TOTALS */
+.cart-totals { background: #fff; border: 1px solid var(--grey-l); border-radius: 12px; overflow: hidden; }
+.cart-totals-header { padding: 20px; border-bottom: 1px solid var(--grey-l); }
+.cart-totals-header h2 { font-size: 18px; font-weight: 800; }
+.totals-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--grey-l); font-size: 14px; }
+.totals-row:last-of-type { border-bottom: none; }
+.totals-label { color: var(--grey); font-weight: 500; }
+.totals-value { font-weight: 600; }
+.totals-total { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-top: 2px solid var(--grey-l); }
+.totals-total .totals-label { font-weight: 700; font-size: 15px; color: var(--dark); }
+.totals-total .totals-value { font-weight: 800; font-size: 20px; color: var(--amber); }
+.btn-checkout { display: block; width: calc(100% - 40px); margin: 16px 20px; padding: 16px; background: var(--dark); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 0.5px; transition: background 0.2s; text-align: center; text-decoration: none; }
+.btn-checkout:hover { background: var(--amber); }
+
+/* NOTE BOX */
+.note-box { margin-top: 20px; border-left: 4px solid #e53e3e; background: #fff5f5; border-radius: 0 8px 8px 0; padding: 16px 20px; font-size: 13px; color: var(--dark); line-height: 1.7; }
+.note-box strong { display: block; margin-bottom: 4px; font-size: 14px; }
+
+/* FOOTER */
+footer { background: var(--cream2); border-top: 1px solid var(--grey-l); padding: 60px 40px 32px; margin-top: 60px; }
+.footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-weight: 800; font-size: 14px; letter-spacing: 1px; margin-bottom: 12px; }
+.footer-tagline { font-size: 13px; color: var(--grey); line-height: 1.6; }
+.footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--dark); margin-bottom: 14px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--amber); }
+.footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--grey-l); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.footer-disclaimer { font-size: 12px; color: var(--grey); }
+.footer-copy { font-size: 12px; color: var(--grey); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .cart-container { grid-template-columns: 1fr; padding: 0 20px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .cart-table th:nth-child(2), .cart-table td:nth-child(2),
+  .cart-table th:nth-child(4), .cart-table td:nth-child(4) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="anbar"><span class="ticker">★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity &nbsp;·&nbsp; COA on Every Product &nbsp;·&nbsp;&nbsp;★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery</span></div>
+
+<nav>
+  <a href="hop-index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="3" fill="#B5622A"/><circle cx="16" cy="6" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="16" cy="26" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="7" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="25" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="7" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="25" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/><line x1="16" y1="16" x2="16" y2="8.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="16" y2="23.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="9" y2="12.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="23" y2="12.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="9" y2="19.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="23" y2="19.5" stroke="#B5622A" stroke-width="1.5"/></svg>
+    HOUSE OF PEPS
+  </a>
+  <ul class="nav-links">
+    <li><a href="hop-peptides.html">Peptides</a></li>
+    <li><a href="#">BAC Water</a></li>
+    <li><a href="#">Lab Tests</a></li>
+    <li><a href="#">Peptide Calculator</a></li>
+    <li class="nav-dropdown">
+      <a href="#">More ▾</a>
+      <div class="nav-dropdown-menu">
+        <a href="#">Track My Order</a>
+        <a href="#">FAQ</a>
+        <a href="hop-blog.html">Blog</a>
+        <a href="#">Become An Affiliate</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-icons">
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+    <a href="hop-cart.html" class="nav-icon" style="text-decoration:none;color:inherit;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge">2</span>
+    </a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>CART</h1>
+</div>
+
+<div class="cart-container">
+  <!-- CART TABLE -->
+  <div>
+    <div class="cart-table-wrap">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="product-cell">
+                <div class="product-thumb">GLP-3</div>
+                <a href="hop-product.html" class="product-name-link">GLP-3 (Reta)</a>
+              </div>
+            </td>
+            <td class="price-col">390.00 AED</td>
+            <td><input class="qty-input" type="number" value="1" min="1"></td>
+            <td class="subtotal-col">390.00 AED</td>
+            <td><button class="remove-btn" title="Remove">×</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-cell">
+                <div class="product-thumb">BPC</div>
+                <a href="#" class="product-name-link">BPC-157</a>
+              </div>
+            </td>
+            <td class="price-col">240.00 AED</td>
+            <td><input class="qty-input" type="number" value="1" min="1"></td>
+            <td class="subtotal-col">240.00 AED</td>
+            <td><button class="remove-btn" title="Remove">×</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="coupon-row">
+        <input class="coupon-input" type="text" placeholder="Coupon code">
+        <button class="btn-apply">APPLY COUPON</button>
+        <div class="coupon-spacer"></div>
+        <button class="btn-update">UPDATE CART</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div>
+    <div class="cart-totals">
+      <div class="cart-totals-header">
+        <h2>Cart Totals</h2>
+      </div>
+      <div class="totals-row">
+        <span class="totals-label">Subtotal</span>
+        <span class="totals-value">630.00 AED</span>
+      </div>
+      <div class="totals-row">
+        <span class="totals-label">Service Charge</span>
+        <span class="totals-value">40.30 AED</span>
+      </div>
+      <div class="totals-row">
+        <span class="totals-label">Location Shipping</span>
+        <span class="totals-value">25.00 AED</span>
+      </div>
+      <div class="totals-total">
+        <span class="totals-label">Total</span>
+        <span class="totals-value">695.30 AED</span>
+      </div>
+      <a href="hop-checkout.html" class="btn-checkout">PROCEED TO CHECKOUT</a>
+    </div>
+
+    <div class="note-box">
+      <strong>Note</strong>
+      Minimum delivery expected 1-3 hours if same day<br>
+      Working hours 8am till 10pm weekdays<br>
+      Weekends 10am to 10pm
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="3" fill="#B5622A"/><circle cx="16" cy="6" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="16" cy="26" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="7" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="25" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="7" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="25" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/><line x1="16" y1="16" x2="16" y2="8.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="16" y2="23.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="9" y2="12.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="23" y2="12.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="9" y2="19.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="23" y2="19.5" stroke="#B5622A" stroke-width="1.5"/></svg>
+        HOUSE OF PEPS
+      </div>
+      <p class="footer-tagline">Lab-verified research peptides. UAE & GCC cold-chain delivery. ≥99% purity guaranteed.</p>
+    </div>
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="#">Bestsellers</a></li>
+        <li><a href="hop-peptides.html">Peptides</a></li>
+        <li><a href="#">Bacteriostatic Water</a></li>
+        <li><a href="#">Lab Tests</a></li>
+        <li><a href="#">Peptide Calculator</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>HOUSE OF PEPS</h4>
+      <ul>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Become an Affiliate</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>GENERAL</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refunds</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-disclaimer">For Research Use Only. Not for human or veterinary use, diagnosis, or treatment.</p>
+    <p class="footer-copy">© 2026 House of Peps. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

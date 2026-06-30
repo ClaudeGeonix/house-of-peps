@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLP-3 (Reta) 10MG — House of Peps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber: #B5622A;
+  --amber-l: #C97840;
+  --amber-pale: #F0E4D8;
+  --dark: #0D0D0D;
+  --dark2: #1A1A1A;
+  --cream: #F5F0EA;
+  --cream2: #EDE7DF;
+  --lime: #C8F135;
+  --grey: #6B6B6B;
+  --grey-l: #D4CFC9;
+  --navy: #1A2744;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); }
+
+/* ANNOUNCEMENT BAR */
+.anbar { background: var(--amber); color: #fff; overflow: hidden; white-space: nowrap; padding: 8px 0; font-size: 13px; font-weight: 500; letter-spacing: 0.3px; }
+.ticker { display: inline-block; animation: ticker 30s linear infinite; }
+@keyframes ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+
+/* NAV */
+nav { background: #fff; border-bottom: 1px solid var(--grey-l); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-weight: 800; font-size: 15px; letter-spacing: 1px; }
+.nav-logo svg { width: 32px; height: 32px; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--dark); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--amber); }
+.nav-dropdown { position: relative; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: #fff; border: 1px solid var(--grey-l); border-radius: 8px; min-width: 180px; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.1); z-index: 200; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 10px 16px; font-size: 13px; color: var(--dark); text-decoration: none; }
+.nav-dropdown-menu a:hover { background: var(--cream); color: var(--amber); }
+.nav-icons { display: flex; align-items: center; gap: 16px; }
+.nav-icon { cursor: pointer; position: relative; color: var(--dark); display: flex; align-items: center; }
+.nav-icon svg { width: 22px; height: 22px; }
+.cart-badge { position: absolute; top: -6px; right: -6px; background: var(--amber); color: #fff; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+/* BREADCRUMB */
+.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 16px 40px; font-size: 13px; color: var(--grey); }
+.breadcrumb a { color: var(--grey); text-decoration: none; }
+.breadcrumb a:hover { color: var(--amber); }
+
+/* PRODUCT SECTION */
+.product-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.product-gallery { position: sticky; top: 80px; }
+.product-main-image { background: linear-gradient(135deg, var(--amber-pale) 0%, #e8d5c0 50%, var(--cream) 100%); border-radius: 16px; height: 520px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px solid var(--grey-l); }
+.vial-label { background: var(--dark); color: #fff; padding: 20px 28px; border-radius: 8px; text-align: center; min-width: 140px; }
+.vial-label .brand { font-size: 9px; letter-spacing: 3px; color: var(--grey-l); margin-bottom: 6px; }
+.vial-label .name { font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+.vial-label .dose { font-size: 13px; color: var(--amber-l); margin-top: 4px; font-weight: 600; }
+.vial-label .form { font-size: 10px; color: var(--grey-l); margin-top: 2px; letter-spacing: 1px; }
+.vial-icon { width: 48px; height: 48px; opacity: 0.3; }
+.thumbnails { display: flex; gap: 10px; margin-top: 16px; }
+.thumb { width: 80px; height: 80px; border-radius: 8px; background: var(--cream2); border: 2px solid transparent; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: center; justify-content: center; color: var(--grey); font-size: 11px; }
+.thumb:hover, .thumb.active { border-color: var(--amber); }
+
+/* PRODUCT DETAILS */
+.product-details {}
+.rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.stars { color: #F59E0B; font-size: 16px; letter-spacing: 1px; }
+.rating-score { font-weight: 700; font-size: 15px; }
+.rating-link { color: var(--amber); font-size: 13px; text-decoration: none; }
+.rating-link:hover { text-decoration: underline; }
+h1.product-title { font-size: 36px; font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
+.purity-badge { display: inline-flex; align-items: center; gap: 6px; background: #e6f7f0; color: #1a7a4a; border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+
+/* ACCORDION */
+.accordion { border: 1px solid var(--grey-l); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+.accordion-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; cursor: pointer; background: #fff; user-select: none; transition: background 0.2s; }
+.accordion-header:hover { background: var(--cream); }
+.accordion-title { font-weight: 600; font-size: 14px; }
+.accordion-right { display: flex; align-items: center; gap: 10px; }
+.coa-badge { background: var(--amber); color: #fff; border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+.accordion-arrow { transition: transform 0.2s; font-size: 12px; }
+.accordion-body { display: none; padding: 16px; background: var(--cream); border-top: 1px solid var(--grey-l); font-size: 13px; color: var(--grey); line-height: 1.6; }
+.accordion-body.open { display: block; }
+.accordion-arrow.open { transform: rotate(180deg); }
+
+/* ALSO AVAILABLE */
+.also-available { margin-bottom: 20px; }
+.also-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--grey); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.also-label::before { content: "●"; color: var(--amber); }
+.pen-card { border: 1px solid var(--grey-l); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.2s; background: #fff; }
+.pen-card:hover { border-color: var(--amber); }
+.pen-thumb { width: 48px; height: 48px; background: var(--amber-pale); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.pen-info { flex: 1; }
+.pen-name { font-weight: 700; font-size: 14px; }
+.pen-desc { font-size: 12px; color: var(--grey); }
+.pen-price { color: var(--amber); font-weight: 700; font-size: 14px; white-space: nowrap; }
+
+/* DOSAGE */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--grey); margin-bottom: 10px; }
+.dosage-pills { display: flex; gap: 8px; margin-bottom: 20px; }
+.dose-pill { padding: 8px 20px; border-radius: 20px; border: 2px solid var(--grey-l); font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s; background: #fff; }
+.dose-pill.active { background: var(--amber); border-color: var(--amber); color: #fff; }
+.dose-pill:hover:not(.active) { border-color: var(--amber); color: var(--amber); }
+
+/* BUNDLE CARDS */
+.bundle-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.bundle-card { border: 2px solid var(--grey-l); border-radius: 10px; padding: 14px 16px; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: all 0.2s; background: #fff; }
+.bundle-card.selected { border-color: var(--amber); background: #fdf7f3; }
+.bundle-card input[type="radio"] { accent-color: var(--amber); width: 18px; height: 18px; flex-shrink: 0; }
+.bundle-info { flex: 1; }
+.bundle-name { font-weight: 700; font-size: 14px; }
+.bundle-savings { font-size: 12px; color: var(--grey); margin-top: 2px; }
+.bundle-savings s { color: var(--grey-l); }
+.bundle-price { font-weight: 800; font-size: 16px; }
+.bestseller-badge { background: var(--amber); color: #fff; border-radius: 4px; padding: 2px 7px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; margin-left: 6px; vertical-align: middle; }
+
+/* FREQUENTLY BOUGHT */
+.fbt-section { margin-bottom: 20px; }
+.fbt-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--grey-l); }
+.fbt-item:last-child { border-bottom: none; }
+.fbt-item input[type="checkbox"] { accent-color: var(--amber); width: 16px; height: 16px; flex-shrink: 0; }
+.fbt-thumb { width: 44px; height: 44px; background: var(--cream2); border-radius: 6px; flex-shrink: 0; }
+.fbt-name { font-size: 13px; font-weight: 600; flex: 1; }
+.fbt-price-col { text-align: right; }
+.fbt-price { font-weight: 700; font-size: 13px; }
+.fbt-was { font-size: 11px; color: var(--grey); }
+.fbt-was s { }
+.qty-stepper { display: flex; align-items: center; border: 1px solid var(--grey-l); border-radius: 6px; overflow: hidden; }
+.qty-btn { width: 28px; height: 28px; background: var(--cream); border: none; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.qty-btn:hover { background: var(--grey-l); }
+.qty-val { width: 32px; text-align: center; font-size: 13px; font-weight: 600; border: none; background: #fff; }
+
+/* TOTAL BOX */
+.total-box { background: var(--amber); color: #fff; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+.total-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; opacity: 0.85; }
+.total-amount { font-size: 28px; font-weight: 800; }
+
+/* TAMARA */
+.tamara-line { font-size: 13px; color: var(--grey); margin-bottom: 16px; }
+.tamara-line a { color: var(--amber); text-decoration: none; }
+.tamara-badge { display: inline-block; background: var(--dark); color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-left: 4px; }
+
+/* BUTTONS */
+.btn-atc { width: 100%; padding: 16px; background: var(--amber); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; margin-bottom: 12px; font-family: 'DM Sans', sans-serif; }
+.btn-atc:hover { background: var(--amber-l); }
+.stock-line { font-size: 13px; color: var(--grey); margin-bottom: 14px; }
+.stock-line::before { content: "✓ "; color: #1a7a4a; font-weight: 700; }
+
+/* PAYMENT ICONS */
+.payment-icons { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.pay-pill { border: 1px solid var(--grey-l); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--grey); background: #fff; }
+
+/* DISCLAIMER */
+.disclaimer { font-size: 11px; color: var(--grey); font-style: italic; line-height: 1.5; }
+
+/* LAB VERIFICATION */
+.lab-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
+.lab-card { border: 2px solid var(--grey-l); border-radius: 16px; padding: 32px; background: #fff; }
+.lab-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.lab-title-line { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--grey); }
+.badge-tested { background: #e6f7f0; color: #1a7a4a; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 700; }
+.badge-coa { background: var(--amber-pale); color: var(--amber); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 700; }
+.lab-card h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+.lab-card p { color: var(--grey); line-height: 1.6; margin-bottom: 16px; }
+.lab-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.lab-tag { background: var(--cream); border: 1px solid var(--grey-l); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; }
+.lab-results { display: flex; align-items: center; gap: 32px; margin-bottom: 24px; }
+.purity-circle { width: 120px; height: 120px; border-radius: 50%; background: var(--amber); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+.purity-circle .pct { font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
+.purity-circle .pct-label { font-size: 9px; color: rgba(255,255,255,0.8); letter-spacing: 1px; margin-top: 4px; }
+.lab-data { display: flex; flex-direction: column; gap: 8px; }
+.lab-data-item { font-size: 14px; color: var(--dark); font-weight: 500; }
+.lab-data-item span { color: var(--grey); font-weight: 400; }
+.coa-subcard { border: 1px solid var(--grey-l); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; background: var(--cream); }
+.coa-text { font-size: 14px; color: var(--dark); }
+.coa-text::before { content: "✓ "; color: #1a7a4a; font-weight: 700; }
+.coa-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-coa { padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.btn-coa.solid { background: var(--amber); color: #fff; border: 2px solid var(--amber); }
+.btn-coa.solid:hover { background: var(--amber-l); }
+.btn-coa.outline { background: transparent; color: var(--amber); border: 2px solid var(--amber); }
+.btn-coa.outline:hover { background: var(--amber-pale); }
+
+/* REVIEWS */
+.reviews-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
+.reviews-section h2 { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
+.review-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--grey-l); margin-bottom: 32px; }
+.review-tab { padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; color: var(--grey); transition: all 0.2s; }
+.review-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+.review-score { display: flex; align-items: center; gap: 20px; margin-bottom: 28px; }
+.review-score .big-num { font-size: 56px; font-weight: 800; line-height: 1; }
+.score-right { display: flex; flex-direction: column; gap: 8px; }
+.score-stars { font-size: 20px; color: #F59E0B; letter-spacing: 2px; }
+.score-count { font-size: 13px; color: var(--grey); }
+.star-bars { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+.star-bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.bar-label { width: 20px; color: var(--grey); }
+.bar-track { flex: 1; height: 8px; background: var(--grey-l); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--amber); border-radius: 4px; }
+.bar-pct { width: 32px; color: var(--grey); text-align: right; }
+.customer-images { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px; }
+.customer-image { width: 80px; height: 80px; background: var(--grey-l); border-radius: 8px; flex-shrink: 0; }
+.reviews-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.reviews-count { font-size: 14px; color: var(--grey); }
+.reviews-sort select { border: 1px solid var(--grey-l); border-radius: 6px; padding: 6px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.review-card { background: #fff; border: 1px solid var(--grey-l); border-radius: 12px; padding: 18px; }
+.review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.reviewer-name { font-weight: 700; font-size: 14px; }
+.review-date { font-size: 12px; color: var(--grey); }
+.review-stars { color: #F59E0B; font-size: 14px; margin-bottom: 8px; }
+.review-text { font-size: 13px; color: var(--grey); line-height: 1.5; }
+.btn-more-reviews { display: block; margin: 0 auto; background: transparent; border: 2px solid var(--amber); color: var(--amber); padding: 12px 28px; border-radius: 24px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.btn-more-reviews:hover { background: var(--amber); color: #fff; }
+
+/* RELATED PRODUCTS */
+.related-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
+.related-section h2 { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.product-card { background: #fff; border: 1px solid var(--grey-l); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.product-card-img { height: 200px; background: linear-gradient(135deg, var(--cream2), var(--amber-pale)); display: flex; align-items: center; justify-content: center; color: var(--grey); font-size: 12px; }
+.product-card-body { padding: 16px; }
+.product-card-name { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.product-card-price { color: var(--amber); font-weight: 800; font-size: 16px; margin-bottom: 12px; }
+.btn-card-atc { width: 100%; padding: 10px; background: var(--dark); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+.btn-card-atc:hover { background: var(--amber); }
+
+/* FOOTER */
+footer { background: var(--cream2); border-top: 1px solid var(--grey-l); padding: 60px 40px 32px; }
+.footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-weight: 800; font-size: 14px; letter-spacing: 1px; margin-bottom: 12px; }
+.footer-tagline { font-size: 13px; color: var(--grey); line-height: 1.6; }
+.footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--dark); margin-bottom: 14px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--amber); }
+.footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--grey-l); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.footer-disclaimer { font-size: 12px; color: var(--grey); }
+.footer-copy { font-size: 12px; color: var(--grey); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .product-section { grid-template-columns: 1fr; gap: 32px; padding: 0 20px 40px; }
+  .product-gallery { position: static; }
+  .lab-section, .reviews-section, .related-section { padding: 0 20px 40px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .related-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .lab-results { flex-direction: column; }
+  h1.product-title { font-size: 28px; }
+  .breadcrumb { padding: 12px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="anbar"><span class="ticker">★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity &nbsp;·&nbsp; COA on Every Product &nbsp;·&nbsp;&nbsp;★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity &nbsp;·&nbsp; COA on Every Product</span></div>
+
+<!-- NAV -->
+<nav>
+  <a href="hop-index.html" class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="3" fill="#B5622A"/>
+      <circle cx="16" cy="6" r="2.5" fill="#B5622A" opacity="0.7"/>
+      <circle cx="16" cy="26" r="2.5" fill="#B5622A" opacity="0.7"/>
+      <circle cx="7" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/>
+      <circle cx="25" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/>
+      <circle cx="7" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/>
+      <circle cx="25" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/>
+      <line x1="16" y1="16" x2="16" y2="8.5" stroke="#B5622A" stroke-width="1.5"/>
+      <line x1="16" y1="16" x2="16" y2="23.5" stroke="#B5622A" stroke-width="1.5"/>
+      <line x1="16" y1="16" x2="9" y2="12.5" stroke="#B5622A" stroke-width="1.5"/>
+      <line x1="16" y1="16" x2="23" y2="12.5" stroke="#B5622A" stroke-width="1.5"/>
+      <line x1="16" y1="16" x2="9" y2="19.5" stroke="#B5622A" stroke-width="1.5"/>
+      <line x1="16" y1="16" x2="23" y2="19.5" stroke="#B5622A" stroke-width="1.5"/>
+    </svg>
+    HOUSE OF PEPS
+  </a>
+  <ul class="nav-links">
+    <li><a href="hop-peptides.html">Peptides</a></li>
+    <li><a href="#">BAC Water</a></li>
+    <li><a href="#">Lab Tests</a></li>
+    <li><a href="#">Peptide Calculator</a></li>
+    <li class="nav-dropdown">
+      <a href="#">More ▾</a>
+      <div class="nav-dropdown-menu">
+        <a href="#">Track My Order</a>
+        <a href="#">FAQ</a>
+        <a href="hop-blog.html">Blog</a>
+        <a href="#">Become An Affiliate</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-icons">
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+    <a href="hop-cart.html" class="nav-icon" style="text-decoration:none;color:inherit;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge">2</span>
+    </a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="hop-index.html">Home</a> / <a href="hop-peptides.html">Peptides</a> / GLP-3 (Reta)
+</div>
+
+<!-- PRODUCT SECTION -->
+<div class="product-section">
+  <!-- LEFT: GALLERY -->
+  <div class="product-gallery">
+    <div class="product-main-image">
+      <svg class="vial-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="18" y="4" width="12" height="36" rx="6" fill="#B5622A" opacity="0.3"/>
+        <rect x="20" y="2" width="8" height="6" rx="2" fill="#B5622A" opacity="0.5"/>
+      </svg>
+      <div class="vial-label">
+        <div class="brand">HOUSE OF PEPS</div>
+        <div class="name">GLP-3</div>
+        <div class="dose">10MG</div>
+        <div class="form">Lyophilized Powder</div>
+      </div>
+    </div>
+    <div class="thumbnails">
+      <div class="thumb active">IMG 1</div>
+      <div class="thumb">IMG 2</div>
+      <div class="thumb">IMG 3</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: DETAILS -->
+  <div class="product-details">
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-score">5.0</span>
+      <a href="#reviews" class="rating-link">(35 customer reviews)</a>
+    </div>
+
+    <h1 class="product-title">GLP-3 (Reta)</h1>
+    <div class="purity-badge">✓ 99.654% purity · Lyophilized powder</div>
+
+    <!-- ACCORDION -->
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">Certificate of Analysis</span>
+        <div class="accordion-right">
+          <span class="coa-badge">99.65%</span>
+          <span class="accordion-arrow">▼</span>
+        </div>
+      </div>
+      <div class="accordion-body">
+        <p><strong>Test Method:</strong> HPLC · LC-MS</p>
+        <p><strong>Purity:</strong> 99.654%</p>
+        <p><strong>Measured Content:</strong> 11.19 mg</p>
+        <p><strong>Identity Confirmed:</strong> Yes — Mass Spectrometry</p>
+        <p><strong>Laboratory:</strong> Accredited Third-Party Lab</p>
+        <p style="margin-top:10px;font-size:12px;">Full certificate available on request. Every batch independently tested before dispatch.</p>
+      </div>
+    </div>
+
+    <!-- ALSO AVAILABLE -->
+    <div class="also-available">
+      <div class="also-label">ALSO AVAILABLE</div>
+      <div class="pen-card">
+        <div class="pen-thumb">💉</div>
+        <div class="pen-info">
+          <div class="pen-name">Pen</div>
+          <div class="pen-desc">Pre-mixed, ready to use</div>
+        </div>
+        <div class="pen-price">From 720.00 AED →</div>
+      </div>
+    </div>
+
+    <!-- DOSAGE -->
+    <div class="section-label">DOSAGE</div>
+    <div class="dosage-pills">
+      <button class="dose-pill active" onclick="selectDose(this)">10MG</button>
+      <button class="dose-pill" onclick="selectDose(this)">30MG</button>
+    </div>
+
+    <!-- BUNDLE CARDS -->
+    <div class="bundle-cards" id="bundleCards">
+      <div class="bundle-card selected" onclick="selectBundle(this, '390.00')">
+        <input type="radio" name="bundle" checked>
+        <div class="bundle-info">
+          <div class="bundle-name">Buy 1 Vial</div>
+        </div>
+        <div class="bundle-price">390.00 AED</div>
+      </div>
+      <div class="bundle-card" onclick="selectBundle(this, '1,482.00')">
+        <input type="radio" name="bundle">
+        <div class="bundle-info">
+          <div class="bundle-name">Buy 4 Vials</div>
+          <div class="bundle-savings">You save 5% — <s>1,560.00 AED</s></div>
+        </div>
+        <div class="bundle-price">1,482.00 AED</div>
+      </div>
+      <div class="bundle-card" onclick="selectBundle(this, '3,510.00')">
+        <input type="radio" name="bundle">
+        <div class="bundle-info">
+          <div class="bundle-name">Buy 10 Vials <span class="bestseller-badge">BESTSELLER</span></div>
+          <div class="bundle-savings">You save 10% — <s>3,900.00 AED</s></div>
+        </div>
+        <div class="bundle-price">3,510.00 AED</div>
+      </div>
+    </div>
+
+    <!-- FREQUENTLY BOUGHT TOGETHER -->
+    <div class="section-label">FREQUENTLY BOUGHT TOGETHER</div>
+    <div class="fbt-section">
+      <div class="fbt-item">
+        <input type="checkbox" checked>
+        <div class="fbt-thumb"></div>
+        <div class="fbt-name">+ Bacteriostatic Water -10%</div>
+        <div class="fbt-price-col">
+          <div class="fbt-price">89.10 AED</div>
+          <div class="fbt-was"><s>99.00 AED</s></div>
+        </div>
+        <div class="qty-stepper">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <input class="qty-val" type="number" value="1" min="1" readonly>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+        </div>
+      </div>
+      <div class="fbt-item">
+        <input type="checkbox">
+        <div class="fbt-thumb"></div>
+        <div class="fbt-name">+ Pharma-Grade Bacteriostatic Water WFI -10%</div>
+        <div class="fbt-price-col">
+          <div class="fbt-price">99.00 AED</div>
+          <div class="fbt-was"><s>110.00 AED</s></div>
+        </div>
+        <div class="qty-stepper">
+          <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+          <input class="qty-val" type="number" value="1" min="1" readonly>
+          <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="total-box">
+      <span class="total-label">YOUR TOTAL</span>
+      <span class="total-amount" id="totalAmount">390.00 AED</span>
+    </div>
+
+    <!-- TAMARA -->
+    <p class="tamara-line">Or split in 4 payments of <strong>97.50 AED</strong> — No late fees. <a href="#">More options</a> <span class="tamara-badge">tamara</span></p>
+
+    <!-- ADD TO CART -->
+    <button class="btn-atc">ADD TO CART</button>
+
+    <p class="stock-line">In stock, receive by Jul 1 · Cooled, tracked UAE delivery.</p>
+
+    <!-- PAYMENT ICONS -->
+    <div class="payment-icons">
+      <span class="pay-pill">Visa</span>
+      <span class="pay-pill">Mastercard</span>
+      <span class="pay-pill">Apple Pay</span>
+      <span class="pay-pill">Google Pay</span>
+      <span class="pay-pill">tamara</span>
+      <span class="pay-pill">COD</span>
+    </div>
+
+    <p class="disclaimer">⚠ For laboratory research use only — not for human or veterinary use, diagnosis, or treatment.</p>
+  </div>
+</div>
+
+<!-- LAB VERIFICATION -->
+<div class="lab-section">
+  <div class="lab-card">
+    <div class="lab-header">
+      <span class="lab-title-line">— LABORATORY VERIFICATION</span>
+      <span class="badge-tested">✓ THIRD-PARTY TESTED</span>
+      <span class="badge-coa">📄 COA AVAILABLE</span>
+    </div>
+    <h2>Independently analysed</h2>
+    <p>Every peptide is screened by an accredited independent laboratory. The full Certificate of Analysis is available below.</p>
+    <div class="lab-tags">
+      <span class="lab-tag">🔥 HPLC purity assay</span>
+      <span class="lab-tag">⚗ Mass-spec identity</span>
+    </div>
+    <div class="lab-results">
+      <div class="purity-circle">
+        <span class="pct">99.7%</span>
+        <span class="pct-label">TESTED PURITY</span>
+      </div>
+      <div class="lab-data">
+        <div class="lab-data-item"><strong>MEASURED CONTENT:</strong> <span>11.19 mg</span></div>
+        <div class="lab-data-item"><strong>METHOD:</strong> <span>HPLC · LC-MS</span></div>
+        <div class="lab-data-item"><strong>IDENTITY:</strong> <span>Confirmed — Mass Spectrometry</span></div>
+        <div class="lab-data-item"><strong>STATUS:</strong> <span>Pass — Meets specification</span></div>
+      </div>
+    </div>
+    <div class="coa-subcard">
+      <span class="coa-text">Certificate of Analysis available — Download or verify the full third-party report.</span>
+      <div class="coa-actions">
+        <button class="btn-coa solid">VIEW CERTIFICATE</button>
+        <button class="btn-coa outline">VERIFY WITH LAB</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="reviews-section" id="reviews">
+  <h2>Customer Reviews</h2>
+  <div class="review-tabs">
+    <div class="review-tab active" onclick="switchTab(this,'product')">Product reviews (35)</div>
+    <div class="review-tab" onclick="switchTab(this,'store')">Store reviews (38)</div>
+  </div>
+  <div class="review-score">
+    <div class="big-num">5.0</div>
+    <div class="score-right">
+      <div class="score-stars">★★★★★</div>
+      <div class="score-count">Based on 35 reviews</div>
+    </div>
+  </div>
+  <div class="star-bars">
+    <div class="star-bar-row"><span class="bar-label">5★</span><div class="bar-track"><div class="bar-fill" style="width:97%"></div></div><span class="bar-pct">97%</span></div>
+    <div class="star-bar-row"><span class="bar-label">4★</span><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><span class="bar-pct">3%</span></div>
+    <div class="star-bar-row"><span class="bar-label">3★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-pct">0%</span></div>
+    <div class="star-bar-row"><span class="bar-label">2★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-pct">0%</span></div>
+    <div class="star-bar-row"><span class="bar-label">1★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-pct">0%</span></div>
+  </div>
+  <div class="customer-images">
+    <div class="customer-image"></div>
+    <div class="customer-image"></div>
+    <div class="customer-image"></div>
+    <div class="customer-image"></div>
+    <div class="customer-image"></div>
+    <div class="customer-image"></div>
+    <div class="customer-image"></div>
+  </div>
+  <div class="reviews-meta">
+    <span class="reviews-count">1–6 of 35 reviews</span>
+    <span class="reviews-sort"><select><option>Most Recent ↓</option><option>Highest Rated</option><option>Lowest Rated</option></select></span>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-header"><span class="reviewer-name">M.A. 🇦🇪</span><span class="review-date">18/06/2026</span></div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Very nice</p>
+    </div>
+    <div class="review-card">
+      <div class="review-header"><span class="reviewer-name">M.K. 🇦🇪</span><span class="review-date">17/06/2026</span></div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Perfect</p>
+    </div>
+    <div class="review-card">
+      <div class="review-header"><span class="reviewer-name">L.M. 🇦🇪</span><span class="review-date">15/06/2026</span></div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Good</p>
+    </div>
+    <div class="review-card">
+      <div class="review-header"><span class="reviewer-name">S.A. 🇦🇪</span><span class="review-date">12/06/2026</span></div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Great results</p>
+    </div>
+    <div class="review-card">
+      <div class="review-header"><span class="reviewer-name">N.A. 🇦🇪</span><span class="review-date">07/06/2026</span></div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Excellent quality. Already put in my second order, 10/10 recommend.</p>
+    </div>
+    <div class="review-card">
+      <div class="review-header"><span class="reviewer-name">Y. 🇳🇱</span><span class="review-date">05/06/2026</span></div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Works very well, good customer service.</p>
+    </div>
+  </div>
+  <button class="btn-more-reviews">Show more reviews (29)</button>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<div class="related-section">
+  <h2>You May Also Like</h2>
+  <div class="related-grid">
+    <div class="product-card">
+      <div class="product-card-img">TB-500</div>
+      <div class="product-card-body">
+        <div class="product-card-name">TB-500 10MG</div>
+        <div class="product-card-price">340.00 AED</div>
+        <button class="btn-card-atc">ADD TO CART</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-card-img">Sermorelin</div>
+      <div class="product-card-body">
+        <div class="product-card-name">Sermorelin 10/5MG</div>
+        <div class="product-card-price">FROM 170.00 AED</div>
+        <button class="btn-card-atc">ADD TO CART</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-card-img">GLOW Blend</div>
+      <div class="product-card-body">
+        <div class="product-card-name">GLOW Blend 70MG</div>
+        <div class="product-card-price">470.00 AED</div>
+        <button class="btn-card-atc">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="3" fill="#B5622A"/><circle cx="16" cy="6" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="16" cy="26" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="7" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="25" cy="11" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="7" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/><circle cx="25" cy="21" r="2.5" fill="#B5622A" opacity="0.7"/><line x1="16" y1="16" x2="16" y2="8.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="16" y2="23.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="9" y2="12.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="23" y2="12.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="9" y2="19.5" stroke="#B5622A" stroke-width="1.5"/><line x1="16" y1="16" x2="23" y2="19.5" stroke="#B5622A" stroke-width="1.5"/></svg>
+        HOUSE OF PEPS
+      </div>
+      <p class="footer-tagline">Lab-verified research peptides. UAE & GCC cold-chain delivery. ≥99% purity guaranteed.</p>
+    </div>
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="#">Bestsellers</a></li>
+        <li><a href="hop-peptides.html">Peptides</a></li>
+        <li><a href="#">Bacteriostatic Water</a></li>
+        <li><a href="#">Lab Tests</a></li>
+        <li><a href="#">Peptide Calculator</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>HOUSE OF PEPS</h4>
+      <ul>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Become an Affiliate</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>GENERAL</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refunds</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-disclaimer">For Research Use Only. Not for human or veterinary use, diagnosis, or treatment.</p>
+    <p class="footer-copy">© 2026 House of Peps. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function toggleAccordion(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.accordion-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function selectDose(btn) {
+  document.querySelectorAll('.dose-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectBundle(card, price) {
+  document.querySelectorAll('.bundle-card').forEach(c => {
+    c.classList.remove('selected');
+    c.querySelector('input[type="radio"]').checked = false;
+  });
+  card.classList.add('selected');
+  card.querySelector('input[type="radio"]').checked = true;
+  document.getElementById('totalAmount').textContent = price + ' AED';
+}
+
+function changeQty(btn, delta) {
+  const input = btn.parentElement.querySelector('.qty-val');
+  let val = parseInt(input.value) + delta;
+  if (val < 1) val = 1;
+  input.value = val;
+}
+
+function switchTab(tab, type) {
+  document.querySelectorAll('.review-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+}
+
+// Thumbnail selection
+document.querySelectorAll('.thumb').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

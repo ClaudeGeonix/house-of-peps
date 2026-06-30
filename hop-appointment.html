@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Blood Test — House of Peps × Al Hanna Home Healthcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber: #B5622A;
+  --amber-l: #C97840;
+  --amber-pale: #F0E4D8;
+  --dark: #0D0D0D;
+  --dark2: #1A1A1A;
+  --cream: #F5F0EA;
+  --cream2: #EDE7DF;
+  --lime: #C8F135;
+  --white: #fff;
+  --grey: #6B6B6B;
+  --grey-l: #D4CFC9;
+  --green: #16A34A;
+  --green-l: #15803D;
+  --green-pale: #DCFCE7;
+  --red: #D94040;
+  --teal: #0E7490;
+  --teal-pale: #E0F2FE;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* ═══ ANNOUNCEMENT ═══ */
+.anbar{background:var(--dark);color:#fff;overflow:hidden;padding:10px 0;font-size:12.5px;font-weight:500;letter-spacing:.4px}
+.ticker{display:inline-block;white-space:nowrap;animation:tick 42s linear infinite}
+@keyframes tick{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+/* ═══ NAV ═══ */
+nav{position:sticky;top:0;z-index:200;background:var(--cream);border-bottom:1px solid var(--cream2);height:68px;padding:0 56px;display:flex;align-items:center;gap:0}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:900;letter-spacing:-.4px;margin-right:32px;flex-shrink:0}
+.nav-logo svg{flex-shrink:0}
+.nav-links{display:flex;align-items:center;list-style:none;gap:0;flex:1}
+.nav-links li{position:relative}
+.nav-links li a,.nav-links li button{padding:8px 15px;font-size:14px;font-weight:500;color:var(--dark);background:none;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;border-radius:8px;transition:background .15s;white-space:nowrap}
+.nav-links li a:hover,.nav-links li button:hover{background:var(--cream2)}
+.ddmenu{position:absolute;top:calc(100% + 6px);left:0;background:#fff;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.12);opacity:0;pointer-events:none;transform:translateY(-6px);transition:all .2s;z-index:300;list-style:none}
+.nav-links li:hover .ddmenu{opacity:1;pointer-events:all;transform:translateY(0)}
+.ddmenu li a{display:block;padding:9px 14px;font-size:14px;border-radius:8px;transition:background .15s;font-weight:500}
+.ddmenu li a:hover{background:var(--cream);color:var(--amber)}
+.nav-icons{display:flex;align-items:center;gap:2px;margin-left:auto}
+.icon-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:background .15s;position:relative}
+.icon-btn:hover{background:var(--cream2)}
+.cart-dot{position:absolute;top:5px;right:5px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* ═══ PARTNERSHIP BANNER ═══ */
+.partner-section{background:var(--cream);padding:72px 80px 60px}
+.page-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--grey);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.page-eyebrow::before{content:'—';color:var(--amber)}
+.partner-section h1{font-size:clamp(38px,5vw,60px);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:10px}
+.partner-section h2{font-size:clamp(16px,2vw,20px);font-weight:400;color:var(--grey);margin-bottom:36px;letter-spacing:-.2px}
+.callout-box{border-left:4px solid var(--amber);background:var(--amber-pale);border-radius:0 12px 12px 0;padding:22px 26px;max-width:780px;font-size:15px;line-height:1.75;color:var(--dark2)}
+.callout-box strong{font-weight:700;color:var(--amber)}
+
+/* ═══ BLOOD TEST PACKAGES ═══ */
+.packages-section{background:var(--cream);padding:0 0 72px}
+.pkg-header{padding:0 80px 36px}
+.pkg-header h2{font-size:clamp(28px,3vw,38px);font-weight:900;letter-spacing:-1px}
+.carousel-wrap{position:relative;padding:0 80px}
+.carousel-outer{overflow:hidden;position:relative}
+.carousel-track{display:flex;gap:16px;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.pkg-card{flex:0 0 220px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid var(--cream2);display:flex;flex-direction:column}
+.pkg-badge{display:inline-flex;align-items:center;gap:5px;background:var(--teal-pale);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px;width:fit-content}
+.pkg-img{height:160px;background:linear-gradient(140deg,var(--amber-pale),var(--cream2));display:flex;align-items:center;justify-content:center;padding:20px;flex-shrink:0}
+.pkg-img-inner{width:60px;height:90px;background:rgba(255,255,255,.75);border-radius:6px 6px 14px 14px;border:1px solid rgba(181,98,42,.2);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden}
+.pkg-img-inner .cap{width:100%;height:16px;background:var(--amber);flex-shrink:0}
+.pkg-img-inner .fill{flex:1;display:flex;align-items:center;justify-content:center}
+.pkg-img-inner .fill span{font-size:7px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.5px;text-align:center;line-height:1.4;padding:4px}
+.pkg-body{padding:14px 14px 16px;display:flex;flex-direction:column;flex:1}
+.pkg-name{font-size:13px;font-weight:700;line-height:1.4;margin-bottom:8px;flex:1}
+.pkg-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
+.pkg-price{font-size:18px;font-weight:900;color:var(--amber)}
+.pkg-was{font-size:12px;color:var(--grey);text-decoration:line-through}
+.btn-book{display:block;width:100%;padding:9px 0;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;text-align:center}
+.btn-book:hover{background:var(--green-l)}
+
+/* Carousel nav */
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;background:#fff;border:1px solid var(--cream2);border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,.1);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--dark);z-index:10;transition:all .2s;line-height:1}
+.carousel-arrow:hover{background:var(--amber);color:#fff;border-color:var(--amber)}
+.carousel-arrow.prev{left:28px}
+.carousel-arrow.next{right:28px}
+.carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:24px}
+.carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--grey-l);cursor:pointer;transition:all .25s;border:none;padding:0}
+.carousel-dot.active{background:var(--amber);width:20px;border-radius:4px}
+
+/* ═══ BOOKING FORM ═══ */
+.form-section{background:#fff;padding:72px 80px}
+.form-card{max-width:800px;margin:0 auto;background:#fff;border-radius:20px;border:1px solid var(--cream2);padding:44px 48px}
+.form-card h2{font-size:clamp(26px,3vw,34px);font-weight:900;color:var(--amber);letter-spacing:-1px;margin-bottom:32px}
+.form-section-label{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.form-section-label::after{content:'';flex:1;height:1px;background:var(--green-pale)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
+.form-grid.two{grid-template-columns:1fr 1fr}
+.form-grid.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:600;color:var(--grey);letter-spacing:.3px}
+.field input,.field select,.field textarea{padding:11px 14px;border:1.5px solid var(--grey-l);border-radius:8px;font-size:14px;font-family:inherit;color:var(--dark);background:#fff;outline:none;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--amber)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.radio-group{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:4px}
+.radio-group label{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;cursor:pointer}
+.radio-group input[type=radio]{accent-color:var(--amber);width:15px;height:15px;cursor:pointer}
+.field-radio{display:flex;flex-direction:column;gap:6px}
+.field-radio>label{font-size:12px;font-weight:600;color:var(--grey);letter-spacing:.3px}
+.form-sep{height:28px}
+.btn-book-now{display:block;width:100%;padding:17px;background:var(--green);color:#fff;border:none;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.4px;transition:background .2s,transform .15s;margin-top:32px}
+.btn-book-now:hover{background:var(--green-l);transform:translateY(-1px)}
+
+/* ═══ POST-BOOKING INFO ═══ */
+.postbook-section{background:#fff;padding:0 80px 80px}
+.postbook-inner{max-width:800px;margin:0 auto;border-top:1px solid var(--cream2);padding-top:40px}
+.postbook-h{font-size:17px;font-weight:700;margin-bottom:14px;color:var(--dark)}
+.postbook-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:36px}
+.postbook-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.6;color:var(--dark)}
+.postbook-list li::before{content:'•';font-size:16px;flex-shrink:0;margin-top:1px}
+.postbook-list.green li::before{color:var(--green)}
+.postbook-list.red li::before{color:var(--red)}
+.postbook-list.green li{color:var(--dark)}
+.postbook-list.red li{color:var(--red)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--cream2);padding:68px 80px 0}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.ft-logo{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:900;letter-spacing:-.4px;margin-bottom:18px}
+.ft-tag{font-size:13px;line-height:1.72;color:var(--grey);max-width:268px}
+.ft-col h4{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:18px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-col ul a{font-size:13.5px;color:var(--dark);font-weight:500;transition:color .15s}
+.ft-col ul a:hover{color:var(--amber)}
+.ft-disc{border-top:1px solid var(--grey-l);padding:22px 0;font-size:10.5px;line-height:1.75;color:var(--grey);max-width:780px}
+.ft-bot{border-top:1px solid var(--grey-l);padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+.ft-bot span{font-size:11.5px;color:var(--grey);font-weight:500}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  nav{padding:0 18px}
+  .nav-links li a,.nav-links li button{padding:7px 10px;font-size:13px}
+  .partner-section{padding:48px 24px 40px}
+  .partner-section h1{font-size:clamp(32px,8vw,48px)}
+  .pkg-header{padding:0 24px 28px}
+  .carousel-wrap{padding:0 48px}
+  .carousel-arrow.prev{left:6px}
+  .carousel-arrow.next{right:6px}
+  .pkg-card{flex:0 0 85vw}
+  .form-section{padding:48px 20px}
+  .form-card{padding:28px 22px}
+  .form-grid{grid-template-columns:1fr}
+  .form-grid.two{grid-template-columns:1fr}
+  .postbook-section{padding:0 20px 56px}
+  footer{padding:48px 22px 0}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:36px;margin-bottom:40px}
+}
+@media(max-width:600px){
+  .ft-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ ANNOUNCEMENT BAR ═══════════════ -->
+<div class="anbar">
+  <span class="ticker">★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE &amp; GCC &nbsp;·&nbsp; Follow-up Consultation Included with Every Blood Test &nbsp;·&nbsp; In Partnership with Al Hanna Home Healthcare Clinic &nbsp;·&nbsp; Book Your Home Blood Test Today &nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE &amp; GCC &nbsp;·&nbsp; Follow-up Consultation Included with Every Blood Test &nbsp;·&nbsp; In Partnership with Al Hanna Home Healthcare Clinic &nbsp;·&nbsp; Book Your Home Blood Test Today &nbsp;·&nbsp;</span>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <a href="hop-index.html" class="nav-logo">
+    <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="6.5" stroke="#B5622A" stroke-width="2"/>
+      <ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5"/>
+      <ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(60 18 18)"/>
+      <ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(120 18 18)"/>
+      <circle cx="18" cy="18" r="2.8" fill="#B5622A"/>
+    </svg>
+    HOUSE OF PEPS
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="hop-peptides.html">Peptides</a></li>
+    <li><a href="#">BAC Water</a></li>
+    <li><a href="#">Lab Tests</a></li>
+    <li><a href="#">Peptide Calculator</a></li>
+    <li>
+      <button>More ↓</button>
+      <ul class="ddmenu">
+        <li><a href="#">Track My Order</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Become An Affiliate</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="nav-icons">
+    <button class="icon-btn" title="Search">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="m14 14 3.5 3.5"/></svg>
+    </button>
+    <button class="icon-btn" title="Account">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+    <button class="icon-btn" title="Wishlist">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="icon-btn" title="Cart">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ PARTNERSHIP BANNER ═══════════════ -->
+<section class="partner-section">
+  <div class="page-eyebrow">Blood Testing · UAE</div>
+  <h1>Book Your Blood Test</h1>
+  <h2>In partnership with Al Hanna Home Healthcare Clinic</h2>
+  <div class="callout-box">
+    Every blood test package includes a <strong>detailed follow-up email consultation</strong> with a leading expert in blood analysis — a certified advanced peptide specialist and 15+ year body transformation coach. Your results will come with personalised recommendations. An <strong>optional 1-on-1 Zoom consultation</strong> is also available.
+  </div>
+</section>
+
+<!-- ═══════════════ BLOOD TEST CAROUSEL ═══════════════ -->
+<section class="packages-section">
+  <div class="pkg-header">
+    <h2>Blood Test Packages</h2>
+  </div>
+  <div class="carousel-wrap">
+    <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous">&#8592;</button>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="carouselTrack">
+
+        <!-- Card 1 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Energy &amp; Fatigue</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Energy &amp; Fatigue Home Blood Test</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 379</span>
+              <span class="pkg-was">AED 500</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Athlete Panel</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Bodybuilder &amp; Athlete Hormone &amp; Health Panel</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 849</span>
+              <span class="pkg-was">AED 1,000</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Male Hormone</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Male Hormone Optimisation Profile</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 749</span>
+              <span class="pkg-was">AED 950</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Female Hormone</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Female Hormone Optimisation Profile</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 799</span>
+              <span class="pkg-was">AED 1,000</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Thyroid &amp; Metabolism</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Thyroid &amp; Metabolism Health Panel</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 949</span>
+              <span class="pkg-was">AED 1,200</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Elite Performance</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Advanced Elite Performance &amp; Longevity Panel</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 1,149</span>
+              <span class="pkg-was">AED 1,500</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Vitamin D</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Vitamin D Gold</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 659</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>B12 &amp; B9</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Vitamin B12 &amp; B9</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 249</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Thyroid Gland</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Thyroid Gland</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 599</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Mini Hormones</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Mini Hormones Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 399</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Cancer Check</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Cancer Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 1,200</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Elite Women</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Elite Women Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 1,116</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 13 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Father &amp; Son</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Father &amp; Son Bundle</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 2,200</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 14 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Full Hormones</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Full Hormones Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 700</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 15 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Mom &amp; Daughter</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Mom Daughter Bundle</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 2,200</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 16 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Pre Marriage</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Pre Marriage Package 1</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 1,999</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 17 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Diabetes</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Diabetes Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 999</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 18 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Full Health</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Full Health Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 3,000</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+        <!-- Card 19 -->
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <div class="pkg-img-inner"><div class="cap"></div><div class="fill"><span>Platinum</span></div></div>
+          </div>
+          <div class="pkg-body">
+            <span class="pkg-badge">Blood Test</span>
+            <div class="pkg-name">Platinum Checkup</div>
+            <div class="pkg-price-row">
+              <span class="pkg-price">AED 896</span>
+            </div>
+            <a href="#book-form" class="btn-book">Book →</a>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+    </div><!-- /outer -->
+    <button class="carousel-arrow next" id="nextBtn" aria-label="Next">&#8594;</button>
+  </div><!-- /wrap -->
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<!-- ═══════════════ BOOKING FORM ═══════════════ -->
+<section class="form-section" id="book-form">
+  <div class="form-card">
+    <h2>Book An Appointment</h2>
+
+    <form onsubmit="return false;">
+      <!-- PATIENT INFORMATION -->
+      <div class="form-section-label">Patient Information</div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="First name">
+        </div>
+        <div class="field">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Last name">
+        </div>
+        <div class="field">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field-radio">
+          <label>Gender</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="+971 50 000 0000">
+        </div>
+        <div class="field">
+          <label for="address">Address</label>
+          <input type="text" id="address" placeholder="Street address">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@email.com">
+        </div>
+        <div class="field">
+          <label for="emirate-id">Emirates ID Number</label>
+          <input type="text" id="emirate-id" placeholder="784-XXXX-XXXXXXX-X">
+        </div>
+        <div class="field">
+          <label for="nationality">Nationality</label>
+          <input type="text" id="nationality" placeholder="e.g. Emirati">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="citizenship">Citizenship</label>
+          <input type="text" id="citizenship" placeholder="Citizenship">
+        </div>
+        <div class="field">
+          <label for="appt-date">Select Date</label>
+          <input type="date" id="appt-date">
+        </div>
+        <div class="field">
+          <label for="appt-time">Select Time</label>
+          <select id="appt-time">
+            <option value="">Choose Time</option>
+            <option>07:00 AM</option>
+            <option>08:00 AM</option>
+            <option>09:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>01:00 PM</option>
+            <option>02:00 PM</option>
+            <option>03:00 PM</option>
+            <option>04:00 PM</option>
+            <option>05:00 PM</option>
+            <option>06:00 PM</option>
+            <option>07:00 PM</option>
+            <option>08:00 PM</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="area">Area</label>
+          <input type="text" id="area" placeholder="e.g. Jumeirah">
+        </div>
+        <div class="field">
+          <label for="villa">Villa / Building</label>
+          <input type="text" id="villa" placeholder="Villa or building name">
+        </div>
+        <div class="field">
+          <label for="apartment">Apartment</label>
+          <input type="text" id="apartment" placeholder="Apartment no.">
+        </div>
+      </div>
+
+      <div class="form-grid full">
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city" placeholder="e.g. Dubai">
+        </div>
+      </div>
+
+      <div class="form-sep"></div>
+
+      <!-- MEDICAL INFORMATION -->
+      <div class="form-section-label">Medical Information</div>
+
+      <div class="form-grid two">
+        <div class="field">
+          <label for="med-type">Type</label>
+          <input type="text" id="med-type" placeholder="e.g. Home Visit">
+        </div>
+        <div class="field-radio">
+          <label>Blood Chronic Conditions</label>
+          <div class="radio-group" style="flex-wrap:wrap">
+            <label><input type="radio" name="chronic" value="diabetes"> Diabetes</label>
+            <label><input type="radio" name="chronic" value="hypertension"> Hypertension</label>
+            <label><input type="radio" name="chronic" value="heart"> Heart Disease</label>
+            <label><input type="radio" name="chronic" value="other"> Other</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-grid two">
+        <div class="field-radio">
+          <label>Drug Allergies</label>
+          <div class="radio-group">
+            <label><input type="radio" name="allergies" value="none" onclick="toggleAllergyField(false)"> None</label>
+            <label><input type="radio" name="allergies" value="yes" onclick="toggleAllergyField(true)"> Yes</label>
+          </div>
+        </div>
+        <div class="field" id="allergy-field" style="display:none">
+          <label for="allergy-detail">Specify Drug Allergies</label>
+          <input type="text" id="allergy-detail" placeholder="List any drug allergies">
+        </div>
+      </div>
+
+      <div class="form-grid two">
+        <div class="field">
+          <label for="current-meds">Current Medication</label>
+          <input type="text" id="current-meds" placeholder="List current medications">
+        </div>
+        <div class="field-radio">
+          <label>Requested Service</label>
+          <div class="radio-group">
+            <label><input type="radio" name="service" value="blood-test" checked> Blood Test</label>
+            <label><input type="radio" name="service" value="iv-drip"> IV Drip</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-book-now">Book Now</button>
+    </form>
+  </div>
+</section>
+
+<!-- ═══════════════ POST-BOOKING INFO ═══════════════ -->
+<section class="postbook-section">
+  <div class="postbook-inner">
+    <h3 class="postbook-h">Immediately After Treatment</h3>
+    <ul class="postbook-list green">
+      <li>Remain seated or lying down for at least 10–15 minutes after IV or Blood transfusion.</li>
+      <li>Notify staff immediately if you feel dizziness, nausea, or shortness of breath.</li>
+      <li>Keep the IV site clean and dry for the next 24 hours.</li>
+      <li>Mild bruising is normal; contact us if you notice swelling, redness, or severe pain.</li>
+      <li>Avoid heavy lifting or strenuous activity for the rest of the day.</li>
+      <li>Gradually resume normal activities as you feel comfortable.</li>
+      <li>Drink plenty of fluids unless otherwise directed.</li>
+      <li>Eat light meals for a few hours following the treatment.</li>
+    </ul>
+
+    <h3 class="postbook-h">Contact us immediately if you experience:</h3>
+    <ul class="postbook-list red">
+      <li>Severe shortness of breath or chest pain.</li>
+      <li>Persistent dizziness or fainting.</li>
+      <li>Swelling or redness at the IV site.</li>
+      <li>Unusual bleeding or allergic reactions (rash, itching, hives).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="6.5" stroke="#B5622A" stroke-width="2"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(60 18 18)"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(120 18 18)"/><circle cx="18" cy="18" r="2.8" fill="#B5622A"/></svg>
+        HOUSE OF PEPS
+      </div>
+      <p class="ft-tag">Lab-verified research peptides for UAE &amp; GCC.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Bestsellers</a></li>
+        <li><a href="hop-peptides.html">Peptides</a></li>
+        <li><a href="#">Bacteriostatic Water</a></li>
+        <li><a href="#">Lab Tests</a></li>
+        <li><a href="#">Peptide Calculator</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>House of Peps</h4>
+      <ul>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Become an Affiliate</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>General</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refunds</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-disc">Products from this website are NOT intended to be used to diagnose or treat any medical condition or disease. Products are sold for laboratory research purposes only and are for in-vitro lab research use only. The products are not medicines or drugs and have not been approved by the FDA to prevent, treat, diagnose, mitigate, or cure any disease, ailment or medical condition.</div>
+  <div class="ft-bot">
+    <span>© 2026 House of Peps. All rights reserved.</span>
+    <span>FOR RESEARCH USE ONLY</span>
+  </div>
+</footer>
+
+<script>
+/* ═══ ALLERGY FIELD TOGGLE ═══ */
+function toggleAllergyField(show) {
+  document.getElementById('allergy-field').style.display = show ? 'block' : 'none';
+}
+
+/* ═══ CAROUSEL ═══ */
+(function() {
+  var track = document.getElementById('carouselTrack');
+  var dotsWrap = document.getElementById('carouselDots');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var cards = track.querySelectorAll('.pkg-card');
+  var total = cards.length;
+  var current = 0;
+  var cardW = 220;
+  var gap = 16;
+  var visibleCount = 4;
+  var autoTimer = null;
+  var pageCount = total; // one step per card
+
+  function getVisibleCount() {
+    var w = track.parentElement.offsetWidth;
+    if (w < 400) return 1;
+    if (w < 600) return 2;
+    if (w < 800) return 3;
+    return 4;
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    var pages = Math.ceil(total / getVisibleCount());
+    for (var i = 0; i < pages; i++) {
+      var btn = document.createElement('button');
+      btn.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', 'Go to page ' + (i + 1));
+      btn.dataset.idx = i;
+      btn.addEventListener('click', function() {
+        goTo(parseInt(this.dataset.idx) * getVisibleCount());
+      });
+      dotsWrap.appendChild(btn);
+    }
+  }
+
+  function updateDots() {
+    var vc = getVisibleCount();
+    var activePage = Math.floor(current / vc);
+    var dots = dotsWrap.querySelectorAll('.carousel-dot');
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === activePage); });
+  }
+
+  function goTo(idx) {
+    var vc = getVisibleCount();
+    var maxIdx = total - vc;
+    if (idx < 0) idx = maxIdx;
+    if (idx > maxIdx) idx = 0;
+    current = idx;
+    var offset = current * (cardW + gap);
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    updateDots();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(next, 4000);
+  }
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  prevBtn.addEventListener('click', function() { prev(); stopAuto(); startAuto(); });
+  nextBtn.addEventListener('click', function() { next(); stopAuto(); startAuto(); });
+  track.parentElement.addEventListener('mouseenter', stopAuto);
+  track.parentElement.addEventListener('mouseleave', startAuto);
+
+  /* touch swipe */
+  var touchStartX = 0;
+  track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; stopAuto(); }, {passive:true});
+  track.addEventListener('touchend', function(e) {
+    var dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { dx > 0 ? next() : prev(); }
+    startAuto();
+  }, {passive:true});
+
+  window.addEventListener('resize', function() { buildDots(); goTo(current); });
+
+  buildDots();
+  startAuto();
+})();
+</script>
+</body>
+</html>

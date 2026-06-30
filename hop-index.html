@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House of Peps — Lab-Verified Research Peptides UAE & GCC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber: #B5622A;
+  --amber-l: #C97840;
+  --amber-pale: #F0E4D8;
+  --dark: #0D0D0D;
+  --dark2: #1A1A1A;
+  --cream: #F5F0EA;
+  --cream2: #EDE7DF;
+  --lime: #C8F135;
+  --white: #fff;
+  --grey: #6B6B6B;
+  --grey-l: #D4CFC9;
+  --red: #D94040;
+  --navy: #1A2744;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* ═══ POPUP ═══ */
+#pop-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+#pop-overlay.on{opacity:1;pointer-events:all}
+.pop-box{display:flex;width:660px;max-width:95vw;border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.45);position:relative}
+.pop-l{flex:1;background:var(--amber-pale);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.pop-vial{width:160px;height:220px;background:linear-gradient(160deg,#ecd9c6,#c8906a);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:6px;box-shadow:0 12px 40px rgba(181,98,42,.25)}
+.pop-vial .cap{width:70%;height:20px;background:var(--amber);border-radius:4px}
+.pop-vial .body{width:100%;flex:1;background:rgba(255,255,255,.75);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px}
+.pop-vial .body b{font-size:18px;font-weight:900;color:var(--dark)}
+.pop-vial .body span{font-size:9px;color:var(--amber);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.pop-r{flex:1;background:var(--amber);padding:44px 36px;display:flex;flex-direction:column;gap:18px}
+.pop-r h2{color:#fff;font-size:26px;font-weight:900;line-height:1.2}
+.pop-email{display:none;width:100%;padding:13px 16px;border-radius:8px;border:none;font-family:inherit;font-size:15px;background:rgba(255,255,255,.92)}
+.pop-email.show{display:block}
+.pop-btn-yes{width:100%;padding:15px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+.pop-btn-yes:hover{background:#243460}
+.pop-btn-no{width:100%;padding:13px;background:rgba(255,255,255,.18);color:rgba(255,255,255,.8);border:none;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .2s}
+.pop-btn-no:hover{background:rgba(255,255,255,.28)}
+.pop-x{position:absolute;top:12px;right:12px;width:30px;height:30px;background:rgba(255,255,255,.2);border:none;border-radius:50%;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ═══ ANNOUNCEMENT ═══ */
+.anbar{background:var(--dark);color:#fff;overflow:hidden;padding:10px 0;font-size:12.5px;font-weight:500;letter-spacing:.4px}
+.ticker{display:inline-block;white-space:nowrap;animation:tick 35s linear infinite}
+@keyframes tick{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+/* ═══ NAV ═══ */
+nav{position:sticky;top:0;z-index:200;background:var(--cream);border-bottom:1px solid var(--cream2);height:68px;padding:0 56px;display:flex;align-items:center;gap:0}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:900;letter-spacing:-.4px;margin-right:32px;flex-shrink:0}
+.nav-logo svg{flex-shrink:0}
+.nav-links{display:flex;align-items:center;list-style:none;gap:0;flex:1}
+.nav-links li{position:relative}
+.nav-links li a,.nav-links li button{padding:8px 15px;font-size:14px;font-weight:500;color:var(--dark);background:none;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;border-radius:8px;transition:background .15s;white-space:nowrap}
+.nav-links li a:hover,.nav-links li button:hover{background:var(--cream2)}
+.ddmenu{position:absolute;top:calc(100% + 6px);left:0;background:#fff;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.12);opacity:0;pointer-events:none;transform:translateY(-6px);transition:all .2s;z-index:300;list-style:none}
+.nav-links li:hover .ddmenu{opacity:1;pointer-events:all;transform:translateY(0)}
+.ddmenu li a{display:block;padding:9px 14px;font-size:14px;border-radius:8px;transition:background .15s;font-weight:500}
+.ddmenu li a:hover{background:var(--cream);color:var(--amber)}
+.nav-icons{display:flex;align-items:center;gap:2px;margin-left:auto}
+.icon-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:background .15s;position:relative}
+.icon-btn:hover{background:var(--cream2)}
+.cart-dot{position:absolute;top:5px;right:5px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* ═══ HERO 1 — LIGHT (redesigned) ═══ */
+.h1-wrap{
+  min-height:100vh;display:flex;align-items:center;
+  padding:0 80px 0 80px;
+  background:#F7F2EC;
+  background-image:
+    linear-gradient(rgba(181,98,42,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(181,98,42,.055) 1px,transparent 1px);
+  background-size:56px 56px;
+  gap:0;position:relative;overflow:hidden;
+}
+/* warm radial glow on right */
+.h1-wrap::after{
+  content:'';position:absolute;
+  right:-100px;top:50%;transform:translateY(-50%);
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(181,98,42,.13) 0%,rgba(240,220,200,.06) 40%,transparent 70%);
+  pointer-events:none;
+}
+.h1-copy{flex:0 0 52%;padding-right:40px;padding-top:0}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--grey);text-transform:uppercase;margin-bottom:32px}
+.eyebrow::before{content:'';width:32px;height:2.5px;background:var(--amber);flex-shrink:0}
+/* BIG headline — REWND scale on Nova background */
+.h1-copy h1{
+  font-size:clamp(52px,6.5vw,86px);
+  font-weight:900;line-height:1.0;
+  letter-spacing:-3px;
+  margin-bottom:28px;
+  color:var(--dark);
+}
+.h1-copy h1 .ac{
+  color:var(--amber);
+  display:block;/* forces UAE & GCC onto own line like Nova */
+}
+.h1-copy p{font-size:16px;line-height:1.8;color:#7A6E66;margin-bottom:40px;max-width:440px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px;align-items:center}
+.btn-p{
+  padding:16px 30px;background:var(--amber);color:#fff;border:none;
+  border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;letter-spacing:.3px;
+  transition:background .2s,transform .15s,box-shadow .2s;font-family:inherit;
+  box-shadow:0 4px 20px rgba(181,98,42,.35);
+}
+.btn-p:hover{background:var(--amber-l);transform:translateY(-2px);box-shadow:0 8px 28px rgba(181,98,42,.45)}
+.btn-o{
+  padding:15px 28px;background:transparent;color:var(--dark);
+  border:2px solid rgba(13,13,13,.22);border-radius:50px;font-size:14px;
+  font-weight:700;cursor:pointer;display:inline-flex;align-items:center;
+  gap:8px;letter-spacing:.3px;transition:all .2s;font-family:inherit;
+}
+.btn-o:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+/* stats row inline in hero */
+.h-stats{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid rgba(181,98,42,.15);padding-top:32px}
+.h-stat{padding-right:32px;margin-right:32px;border-right:1px solid rgba(181,98,42,.15)}
+.h-stat:last-child{border-right:none;margin-right:0;padding-right:0}
+.h-stat .v{font-size:30px;font-weight:900;letter-spacing:-1.5px;color:var(--dark)}
+.h-stat .l{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-top:3px}
+
+/* ── VIAL VISUAL ── */
+.h1-visual{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  min-height:100vh;
+}
+.vial-scene{position:relative;width:360px;height:460px}
+
+/* Ambient glow layers */
+.vial-glow{
+  position:absolute;width:500px;height:500px;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 50% 50%,rgba(181,98,42,.18) 0%,rgba(181,98,42,.06) 35%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.vial-glow2{
+  position:absolute;width:300px;height:300px;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(255,220,180,.3) 0%,transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+
+/* The vial itself — CSS-drawn glass vial */
+.vial{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:168px;height:320px;
+  filter:drop-shadow(0 32px 64px rgba(181,98,42,.22)) drop-shadow(0 8px 24px rgba(0,0,0,.14));
+}
+/* crimp cap — metallic */
+.vial-cap{
+  width:100%;height:36px;
+  background:linear-gradient(180deg,#D0D0D0 0%,#A8A8A8 40%,#C8C8C8 60%,#E0E0E0 100%);
+  border-radius:6px 6px 0 0;
+  position:relative;overflow:hidden;
+}
+.vial-cap::after{
+  content:'';position:absolute;top:0;left:20%;width:18%;height:100%;
+  background:rgba(255,255,255,.45);border-radius:0 4px 4px 0;
+}
+/* rubber stopper under cap */
+.vial-stopper{
+  width:86%;height:14px;margin:0 auto;
+  background:linear-gradient(180deg,#5a3c2a,#3d2318);
+  border-radius:0 0 4px 4px;
+}
+/* glass body */
+.vial-body{
+  width:100%;flex:1;
+  background:linear-gradient(
+    180deg,
+    rgba(248,244,238,.92) 0%,
+    rgba(255,251,246,.96) 30%,
+    rgba(248,244,238,.94) 70%,
+    rgba(240,234,226,.9) 100%
+  );
+  border:1px solid rgba(181,98,42,.12);
+  border-top:none;border-radius:0 0 18px 18px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+/* glass shine — left edge */
+.vial-body::before{
+  content:'';position:absolute;top:0;left:6%;width:9%;height:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.2) 50%,rgba(255,255,255,.45));
+  border-radius:0 0 0 10px;
+}
+/* glass shine — right softer */
+.vial-body::after{
+  content:'';position:absolute;top:0;right:8%;width:5%;height:100%;
+  background:rgba(255,255,255,.2);
+}
+/* label inside vial */
+.vial-label{
+  margin:14px 14px 0;padding:14px 12px;
+  background:var(--cream);border-radius:6px;
+  border-left:3px solid var(--amber);
+  position:relative;z-index:1;
+}
+.vl-brand{font-size:7px;font-weight:700;color:var(--amber);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px}
+.vl-sub{font-size:6.5px;color:var(--grey);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.vl-name{font-size:26px;font-weight:900;color:var(--dark);letter-spacing:-1px;line-height:1;margin-bottom:6px}
+.vl-dose{display:inline-flex;align-items:center;background:var(--amber);color:#fff;font-size:8.5px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.5px;margin-bottom:8px}
+.vl-purity{font-size:6.5px;color:var(--grey);text-transform:uppercase;letter-spacing:.8px;line-height:1.5}
+.vl-purity b{color:var(--amber)}
+/* liquid fill at bottom of vial */
+.vial-liquid{
+  margin-top:auto;height:40px;
+  background:linear-gradient(180deg,rgba(200,160,100,.08),rgba(181,98,42,.15));
+  border-radius:0 0 16px 16px;
+}
+
+/* floating badges */
+.badge{
+  position:absolute;background:#fff;border-radius:14px;
+  padding:10px 14px;
+  box-shadow:0 4px 24px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.06);
+  display:flex;align-items:center;gap:10px;
+  backdrop-filter:blur(8px);
+  animation:float 6s ease-in-out infinite;
+}
+.badge.tr{top:50px;right:-32px;animation-delay:0s}
+.badge.bl{bottom:80px;left:-32px;animation-delay:-3s}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+.badge .b-ring{
+  width:30px;height:30px;border-radius:50%;
+  border:2.5px solid var(--amber);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:var(--amber);font-size:10px;font-weight:900;
+}
+.badge .b-shield{
+  width:30px;height:30px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.badge .b-title{font-size:14px;font-weight:900;color:var(--dark);line-height:1.1}
+.badge .b-sub{font-size:9.5px;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+/* ═══ TRUST STRIP ═══ */
+.trust-strip{
+  background:var(--dark);padding:18px 80px;
+  display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;
+}
+.ts-item{
+  display:flex;align-items:center;gap:8px;padding:6px 28px;
+  font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);
+  letter-spacing:.3px;
+}
+.ts-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;
+}
+.ts-div{width:1px;height:20px;background:rgba(255,255,255,.1)}
+@media(max-width:700px){.trust-strip{padding:14px 20px;gap:4px}.ts-item{padding:4px 14px;font-size:11px}.ts-div{display:none}}
+
+/* ═══ HERO 2 — DARK ═══ */
+.h2-wrap{background:var(--dark);min-height:580px;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 48px;position:relative;overflow:hidden}
+.h2-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 35% 50%,rgba(181,98,42,.07),transparent 60%),radial-gradient(ellipse at 68% 50%,rgba(200,241,53,.04),transparent 60%);pointer-events:none}
+.h2-inner{position:relative;z-index:2;max-width:680px}
+.h-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(181,98,42,.18);border:1px solid rgba(181,98,42,.35);color:var(--amber);padding:6px 18px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.h-pill::before{content:'●';font-size:7px}
+.h2-inner h2{font-size:clamp(48px,6.5vw,82px);font-weight:900;color:#fff;line-height:.98;letter-spacing:-3px;margin-bottom:20px}
+.h2-inner h2 .lime{color:var(--lime)}
+.h2-inner p{color:rgba(255,255,255,.5);font-size:17px;line-height:1.6;margin-bottom:36px}
+.h2-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.btn-lime{padding:15px 30px;background:var(--lime);color:var(--dark);border:none;border-radius:6px;font-size:13.5px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;transition:opacity .2s,transform .15s;font-family:inherit}
+.btn-lime:hover{opacity:.88;transform:translateY(-1px)}
+.btn-do{padding:15px 30px;background:transparent;color:#fff;border:2px solid rgba(255,255,255,.28);border-radius:6px;font-size:13.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:border-color .2s;font-family:inherit}
+.btn-do:hover{border-color:#fff}
+.trust-row{display:flex;gap:28px;justify-content:center;padding-top:28px;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
+.trust-item{font-size:12.5px;color:rgba(255,255,255,.45);font-weight:500;display:flex;align-items:center;gap:6px}
+
+/* ═══ FORMAT SECTION ═══ */
+.fmt-section{padding:96px 80px;background:var(--cream)}
+.sec-ey{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--grey);text-transform:uppercase;margin-bottom:18px}
+.sec-ey::before{content:'—';color:var(--amber)}
+.fmt-section h2{font-size:clamp(34px,4vw,50px);font-weight:900;letter-spacing:-1.5px;margin-bottom:44px}
+.fmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fmt-card{border-radius:20px;overflow:hidden;display:block;transition:transform .25s,box-shadow .25s;color:var(--dark)}
+.fmt-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+.fmt-img{height:250px;display:flex;align-items:center;justify-content:center;padding:28px}
+.fmt-img.ab{background:linear-gradient(145deg,#E5CBAF,#C8906A)}
+.fmt-img.lb{background:linear-gradient(145deg,#EEE8E0,#E2DAD0)}
+.fmt-foot{background:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.fmt-foot .fn{font-size:21px;font-weight:800}
+.fmt-arr{width:38px;height:38px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;transition:background .2s}
+.fmt-card:hover .fmt-arr{background:var(--amber)}
+/* format product mockups */
+.fvial{width:70px;height:110px;background:rgba(255,255,255,.65);border-radius:6px 6px 18px 18px;border:1px solid rgba(181,98,42,.25);margin:0 auto}
+.fpen{width:150px;height:44px;background:rgba(255,255,255,.8);border-radius:22px;margin:70px auto;border:1px solid rgba(0,0,0,.08)}
+.fspray{width:52px;height:130px;background:rgba(181,98,42,.35);border-radius:8px 8px 6px 6px;margin:0 auto;position:relative}
+.fspray::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:18px;height:24px;background:rgba(255,255,255,.75);border-radius:4px 4px 0 0}
+
+/* ═══ NEWSLETTER ═══ */
+.nl-section{background:var(--dark);padding:72px 80px;display:flex;align-items:center;gap:72px}
+.nl-copy{flex:1}
+.nl-label{font-size:10.5px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:12px}
+.nl-copy h3{font-size:clamp(26px,3vw,38px);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.2}
+.nl-form{flex:1;max-width:400px;display:flex;flex-direction:column;gap:10px}
+.nl-input{padding:15px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;transition:border-color .2s}
+.nl-input::placeholder{color:rgba(255,255,255,.28)}
+.nl-input:focus{border-color:var(--lime)}
+.btn-join{padding:15px;background:var(--lime);color:var(--dark);border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:inherit;transition:opacity .2s}
+.btn-join:hover{opacity:.88}
+
+/* ═══ CART DRAWER ═══ */
+#c-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s}
+#c-overlay.on{opacity:1;pointer-events:all}
+#c-drawer{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;background:#fff;z-index:401;transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+#c-drawer.open{right:0}
+.cd-head{padding:22px;border-bottom:1px solid var(--cream2);display:flex;justify-content:space-between;align-items:center}
+.cd-head h3{font-size:17px;font-weight:800}
+.cd-close{width:34px;height:34px;background:var(--cream);border:none;border-radius:50%;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}
+.cd-items{flex:1;overflow-y:auto;padding:18px 22px}
+.cd-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--cream2)}
+.cd-img{width:68px;height:68px;background:var(--amber-pale);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--amber);font-weight:700;text-align:center;line-height:1.3}
+.cd-name{font-size:13.5px;font-weight:700;margin-bottom:3px}
+.cd-var{font-size:11.5px;color:var(--grey);margin-bottom:8px}
+.cd-row{display:flex;align-items:center;justify-content:space-between}
+.qty-s{display:flex;align-items:center;gap:8px}
+.q-btn{width:26px;height:26px;background:var(--cream);border:none;border-radius:6px;cursor:pointer;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.q-n{font-size:14px;font-weight:700;min-width:18px;text-align:center}
+.cd-price{font-size:13.5px;font-weight:800}
+.cd-foot{padding:18px 22px;border-top:1px solid var(--cream2)}
+.cd-sub{display:flex;justify-content:space-between;margin-bottom:14px}
+.cd-sub span:first-child{font-size:13.5px;color:var(--grey)}
+.cd-sub span:last-child{font-size:15px;font-weight:800}
+.btn-to-cart{display:block;width:100%;padding:15px;background:var(--amber);color:#fff;border:none;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;text-align:center;font-family:inherit;transition:background .2s}
+.btn-to-cart:hover{background:var(--amber-l)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--cream2);padding:68px 80px 0}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.ft-logo{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:900;letter-spacing:-.4px;margin-bottom:18px}
+.ft-tag{font-size:13px;line-height:1.72;color:var(--grey);max-width:268px}
+.ft-col h4{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:18px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-col ul a{font-size:13.5px;color:var(--dark);font-weight:500;transition:color .15s}
+.ft-col ul a:hover{color:var(--amber)}
+.ft-disc{border-top:1px solid var(--grey-l);padding:22px 0;font-size:10.5px;line-height:1.75;color:var(--grey);max-width:780px}
+.ft-bot{border-top:1px solid var(--grey-l);padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+.ft-bot span{font-size:11.5px;color:var(--grey);font-weight:500}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  nav{padding:0 18px}
+  .nav-links li a,.nav-links li button{padding:7px 10px;font-size:13px}
+  .h1-wrap{flex-direction:column;padding:80px 22px 56px;text-align:center;min-height:auto;gap:40px}
+  .h1-copy{flex:none;padding-right:0}
+  .h1-visual{min-height:340px}
+  .ctas,.h-stats{justify-content:center}
+  .h-stats{gap:20px}
+  .h-stat{padding-right:20px;margin-right:20px}
+  .h1-copy p{margin:0 auto 32px}
+  .badge.tr{right:-8px}
+  .badge.bl{left:-8px}
+  .h2-wrap{padding:72px 22px}
+  .fmt-section{padding:56px 22px}
+  .fmt-grid{grid-template-columns:1fr}
+  .sbar{padding:28px 22px}
+  .nl-section{flex-direction:column;padding:56px 22px;gap:28px}
+  .nl-form{max-width:100%;width:100%}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:36px}
+  footer{padding:56px 22px 0}
+  .pop-l{display:none}
+  .pop-box{max-width:340px;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ POPUP ═══════════════ -->
+<div id="pop-overlay">
+  <div class="pop-box">
+    <div class="pop-l">
+      <div class="pop-vial">
+        <div class="cap"></div>
+        <div class="body">
+          <span>House of Peps</span>
+          <b>BPC-157</b>
+          <span style="background:var(--amber);color:#fff;padding:2px 8px;border-radius:4px;">10MG</span>
+        </div>
+      </div>
+    </div>
+    <div class="pop-r">
+      <h2>WANT 10% OFF YOUR FIRST ORDER?</h2>
+      <input type="email" class="pop-email" id="pop-email" placeholder="Enter your email address">
+      <button class="pop-btn-yes" id="pop-yes">Yes, get 10% off</button>
+      <button class="pop-btn-no" id="pop-no">No, thanks</button>
+    </div>
+    <button class="pop-x" id="pop-x">✕</button>
+  </div>
+</div>
+
+<!-- ═══════════════ ANNOUNCEMENT BAR ═══════════════ -->
+<div class="anbar">
+  <span class="ticker">★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity on Every Batch &nbsp;·&nbsp; COA on Every Product &nbsp;·&nbsp; Blood Test Follow-up Consultation Included &nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity on Every Batch &nbsp;·&nbsp; COA on Every Product &nbsp;·&nbsp; Blood Test Follow-up Consultation Included &nbsp;·&nbsp;</span>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <a href="hop-index.html" class="nav-logo">
+    <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="6.5" stroke="#B5622A" stroke-width="2"/>
+      <ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5"/>
+      <ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(60 18 18)"/>
+      <ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(120 18 18)"/>
+      <circle cx="18" cy="18" r="2.8" fill="#B5622A"/>
+    </svg>
+    HOUSE OF PEPS
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="hop-peptides.html">Peptides</a></li>
+    <li><a href="#">BAC Water</a></li>
+    <li><a href="#">Lab Tests</a></li>
+    <li><a href="#">Peptide Calculator</a></li>
+    <li>
+      <button>More ↓</button>
+      <ul class="ddmenu">
+        <li><a href="#">Track My Order</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Become An Affiliate</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="nav-icons">
+    <button class="icon-btn" title="Search">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="m14 14 3.5 3.5"/></svg>
+    </button>
+    <button class="icon-btn" title="Account" onclick="location.href='hop-login.html'">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+    <button class="icon-btn" title="Wishlist">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="icon-btn" id="cart-btn" title="Cart">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-dot">2</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO 1 — LIGHT ═══════════════ -->
+<section class="h1-wrap">
+  <div class="h1-copy">
+    <div class="eyebrow">RESEARCH PEPTIDES · UAE & GCC</div>
+    <h1>Lab-verified research peptides for the
+      <span class="ac">UAE & GCC.</span>
+    </h1>
+    <p>Every House of Peps peptide is third-party HPLC and mass-spec tested to ≥99% purity, with a Certificate of Analysis on every order — cold-chain delivered across Dubai, Abu Dhabi and the wider GCC.</p>
+    <div class="ctas">
+      <a href="hop-peptides.html" class="btn-p">SHOP RESEARCH PEPTIDES →</a>
+      <a href="hop-appointment.html" class="btn-o">EXPLORE BLOOD TESTS</a>
+    </div>
+    <div class="h-stats">
+      <div class="h-stat"><div class="v">≥99%</div><div class="l">Tested Purity</div></div>
+      <div class="h-stat"><div class="v">100%</div><div class="l">3rd-Party Verified</div></div>
+      <div class="h-stat"><div class="v">COA</div><div class="l">Every Order</div></div>
+      <div class="h-stat"><div class="v">GCC</div><div class="l">Express Shipping</div></div>
+    </div>
+  </div>
+
+  <div class="h1-visual">
+    <div class="vial-scene">
+      <div class="vial-glow"></div>
+      <div class="vial-glow2"></div>
+
+      <!-- CSS glass vial -->
+      <div class="vial" style="display:flex;flex-direction:column;">
+        <div class="vial-cap"></div>
+        <div class="vial-stopper"></div>
+        <div class="vial-body">
+          <div class="vial-label">
+            <div class="vl-brand">House of Peps</div>
+            <div class="vl-sub">Premium Peptide · For Research Use Only</div>
+            <div class="vl-name">BPC-157</div>
+            <div class="vl-dose">10MG</div>
+            <div class="vl-purity">High Purity, Lab Tested.<br>HPLC Analysed · <b>≥99% Purity</b></div>
+          </div>
+          <div class="vial-liquid"></div>
+        </div>
+      </div>
+
+      <!-- Floating badge — top right -->
+      <div class="badge tr">
+        <div class="b-ring">○</div>
+        <div>
+          <div class="b-title">≥99%</div>
+          <div class="b-sub">Avg. Purity</div>
+        </div>
+      </div>
+
+      <!-- Floating badge — bottom left -->
+      <div class="badge bl">
+        <div class="b-shield">🛡</div>
+        <div>
+          <div class="b-title">Lab verified</div>
+          <div class="b-sub">HPLC · MS · COA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust strip — between hero and dark section -->
+<div class="trust-strip">
+  <div class="ts-item"><span class="ts-dot"></span> ≥99% Tested Purity</div>
+  <div class="ts-div"></div>
+  <div class="ts-item"><span class="ts-dot"></span> 100% 3rd-Party Verified</div>
+  <div class="ts-div"></div>
+  <div class="ts-item"><span class="ts-dot"></span> COA on Every Order</div>
+  <div class="ts-div"></div>
+  <div class="ts-item"><span class="ts-dot"></span> Cold-Chain GCC Delivery</div>
+</div>
+
+<!-- ═══════════════ HERO 2 — DARK ═══════════════ -->
+<section class="h2-wrap">
+  <div class="h2-inner">
+    <div class="h-pill">HOUSE OF PEPS LONGEVITY</div>
+    <h2>Beyond Performance.<br><span class="lime">By Science.</span></h2>
+    <p>Research-backed peptide formulas. Every batch externally lab tested.</p>
+    <div class="h2-ctas">
+      <a href="hop-peptides.html" class="btn-lime">SHOP THE RANGE</a>
+      <a href="hop-blog.html" class="btn-do">READ THE SCIENCE →</a>
+    </div>
+    <div class="trust-row">
+      <span class="trust-item">✓ LAB TESTED</span>
+      <span class="trust-item">📍 SHIPPED GCC-WIDE</span>
+      <span class="trust-item">⚗ SCIENCE-LED</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHOOSE FORMAT ═══════════════ -->
+<section class="fmt-section">
+  <div class="sec-ey">RESEARCH PEPTIDES · UAE & GCC</div>
+  <h2>Choose your format</h2>
+  <div class="fmt-grid">
+    <a href="hop-peptides.html?f=vials" class="fmt-card">
+      <div class="fmt-img ab"><div class="fvial"></div></div>
+      <div class="fmt-foot"><span class="fn">Vials</span><div class="fmt-arr">→</div></div>
+    </a>
+    <a href="hop-peptides.html?f=pens" class="fmt-card">
+      <div class="fmt-img lb"><div class="fpen"></div></div>
+      <div class="fmt-foot"><span class="fn">Pens</span><div class="fmt-arr">→</div></div>
+    </a>
+    <a href="hop-peptides.html?f=sprays" class="fmt-card">
+      <div class="fmt-img lb"><div class="fspray"></div></div>
+      <div class="fmt-foot"><span class="fn">Sprays</span><div class="fmt-arr">→</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ NEWSLETTER ═══════════════ -->
+<section class="nl-section">
+  <div class="nl-copy">
+    <div class="nl-label">Newsletter Sign Up</div>
+    <h3>Unlock 10% Off Your First Order and Stay Ahead of Performance.</h3>
+  </div>
+  <form class="nl-form" onsubmit="nlSubmit(event)">
+    <input type="email" class="nl-input" placeholder="enter your email address" required>
+    <button type="submit" class="btn-join">JOIN</button>
+  </form>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="6.5" stroke="#B5622A" stroke-width="2"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(60 18 18)"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(120 18 18)"/><circle cx="18" cy="18" r="2.8" fill="#B5622A"/></svg>
+        HOUSE OF PEPS
+      </div>
+      <p class="ft-tag">Lab-verified research peptides for the UAE and GCC. Purity measured, identity confirmed, and a Certificate of Analysis on every order — cold-chain delivered to Dubai, Abu Dhabi and across the Gulf.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Bestsellers</a></li>
+        <li><a href="hop-peptides.html">Peptides</a></li>
+        <li><a href="#">Bacteriostatic Water</a></li>
+        <li><a href="#">Lab Tests</a></li>
+        <li><a href="#">Peptide Calculator</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>House of Peps</h4>
+      <ul>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Become an Affiliate</a></li>
+        <li><a href="#">Customer Reviews</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>General</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refunds</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-disc">Products from this website are NOT intended to be used to diagnose or treat any medical condition or disease. Products are sold for laboratory research purposes only and are for in-vitro lab research use only. The products are not medicines or drugs and have not been approved by the FDA to prevent, treat, diagnose, mitigate, or cure any disease, ailment or medical condition.</div>
+  <div class="ft-bot">
+    <span>© 2026 House of Peps. All rights reserved.</span>
+    <span>FOR RESEARCH USE ONLY</span>
+  </div>
+</footer>
+
+<!-- ═══════════════ CART DRAWER ═══════════════ -->
+<div id="c-overlay"></div>
+<div id="c-drawer">
+  <div class="cd-head">
+    <h3>Your Cart (2)</h3>
+    <button class="cd-close" id="cd-close">✕</button>
+  </div>
+  <div class="cd-items">
+    <div class="cd-item">
+      <div class="cd-img">BPC-157<br>10MG</div>
+      <div style="flex:1">
+        <div class="cd-name">BPC-157</div>
+        <div class="cd-var">10MG · Vial</div>
+        <div class="cd-row">
+          <div class="qty-s"><button class="q-btn">−</button><span class="q-n">1</span><button class="q-btn">+</button></div>
+          <span class="cd-price">240.00 AED</span>
+        </div>
+      </div>
+    </div>
+    <div class="cd-item">
+      <div class="cd-img">GLP-3<br>10MG</div>
+      <div style="flex:1">
+        <div class="cd-name">GLP-3 (Reta)</div>
+        <div class="cd-var">10MG · Vial</div>
+        <div class="cd-row">
+          <div class="qty-s"><button class="q-btn">−</button><span class="q-n">1</span><button class="q-btn">+</button></div>
+          <span class="cd-price">390.00 AED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cd-foot">
+    <div class="cd-sub"><span>Subtotal</span><span>630.00 AED</span></div>
+    <a href="hop-cart.html" class="btn-to-cart">Proceed to Checkout</a>
+  </div>
+</div>
+
+<script>
+// ── Popup
+const po=document.getElementById('pop-overlay'),px=document.getElementById('pop-x'),pno=document.getElementById('pop-no'),pyes=document.getElementById('pop-yes'),pem=document.getElementById('pop-email');
+if(!sessionStorage.getItem('hop_pop')){setTimeout(()=>{po.classList.add('on');sessionStorage.setItem('hop_pop','1')},3000)}
+px.onclick=pno.onclick=()=>po.classList.remove('on');
+po.onclick=e=>{if(e.target===po)po.classList.remove('on')};
+pyes.onclick=()=>{
+  if(!pem.classList.contains('show')){pem.classList.add('show');pyes.textContent='Claim My 10% Off →'}
+  else if(pem.value){po.classList.remove('on');setTimeout(()=>alert('🎉 Your code: PEPS10 — Saved at checkout!'),200)}
+};
+
+// ── Cart Drawer
+const cb=document.getElementById('cart-btn'),co=document.getElementById('c-overlay'),cd=document.getElementById('c-drawer'),cc=document.getElementById('cd-close');
+function openCart(){cd.classList.add('open');co.classList.add('on')}
+function closeCart(){cd.classList.remove('open');co.classList.remove('on')}
+cb.onclick=openCart; cc.onclick=closeCart; co.onclick=closeCart;
+
+// ── Qty steppers
+document.querySelectorAll('.qty-s').forEach(s=>{
+  const mn=s.querySelector('.q-btn:first-child'),pl=s.querySelector('.q-btn:last-child'),n=s.querySelector('.q-n');
+  mn.onclick=()=>{if(+n.textContent>1)n.textContent=+n.textContent-1};
+  pl.onclick=()=>{n.textContent=+n.textContent+1};
+});
+
+// ── Newsletter
+function nlSubmit(e){e.preventDefault();alert('🎉 Thanks! Your 10% code: PEPS10');e.target.reset()}
+</script>
+</body>
+</html>

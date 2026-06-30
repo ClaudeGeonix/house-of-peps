@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peptides — House of Peps</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700;9..40,900&display=swap" rel="stylesheet">
+<style>
+:root{--amber:#B5622A;--amber-l:#C97840;--amber-pale:#F0E4D8;--dark:#0D0D0D;--dark2:#1A1A1A;--cream:#F5F0EA;--cream2:#EDE7DF;--lime:#C8F135;--grey:#6B6B6B;--grey-l:#D4CFC9}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* NAV — shared */
+.anbar{background:var(--dark);color:#fff;overflow:hidden;padding:9px 0;font-size:12px;font-weight:500;letter-spacing:.4px;white-space:nowrap}
+.ticker{display:inline-block;white-space:nowrap;animation:tick 35s linear infinite}
+@keyframes tick{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+nav{position:sticky;top:0;z-index:200;background:var(--cream);border-bottom:1px solid var(--cream2);height:68px;padding:0 56px;display:flex;align-items:center;gap:0}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:900;letter-spacing:-.4px;margin-right:32px;flex-shrink:0}
+.nav-links{display:flex;align-items:center;list-style:none;flex:1}
+.nav-links li{position:relative}
+.nav-links li a,.nav-links li button{padding:8px 14px;font-size:14px;font-weight:500;color:var(--dark);background:none;border:none;cursor:pointer;font-family:inherit;border-radius:8px;transition:background .15s;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.nav-links li a.active,.nav-links li a:hover,.nav-links li button:hover{background:var(--cream2)}
+.nav-links li a.active{color:var(--amber);font-weight:700}
+.ddmenu{position:absolute;top:calc(100% + 6px);left:0;background:#fff;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.12);opacity:0;pointer-events:none;transform:translateY(-6px);transition:all .2s;z-index:300;list-style:none}
+.nav-links li:hover .ddmenu{opacity:1;pointer-events:all;transform:translateY(0)}
+.ddmenu li a{display:block;padding:9px 14px;font-size:14px;border-radius:8px;transition:background .15s;font-weight:500}
+.ddmenu li a:hover{background:var(--cream);color:var(--amber)}
+.nav-icons{display:flex;align-items:center;gap:2px;margin-left:auto}
+.icon-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:background .15s;position:relative}
+.icon-btn:hover{background:var(--cream2)}
+.cart-dot{position:absolute;top:5px;right:5px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* ═══ FORMAT SECTION ═══ */
+.fmt-section{padding:88px 80px 60px;background:var(--cream)}
+.sec-ey{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--grey);text-transform:uppercase;margin-bottom:16px}
+.sec-ey::before{content:'—';color:var(--amber)}
+.fmt-section h1{font-size:clamp(36px,4vw,52px);font-weight:900;letter-spacing:-1.5px;margin-bottom:44px}
+.fmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:80px}
+.fmt-card{border-radius:20px;overflow:hidden;display:block;transition:transform .25s,box-shadow .25s;color:var(--dark)}
+.fmt-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+.fmt-img{height:240px;display:flex;align-items:center;justify-content:center;padding:28px}
+.fmt-img.ab{background:linear-gradient(145deg,#E5CBAF,#C8906A)}
+.fmt-img.lb{background:linear-gradient(145deg,#EEE8E0,#E2DAD0)}
+.fmt-foot{background:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.fmt-foot .fn{font-size:20px;font-weight:800}
+.fmt-arr{width:36px;height:36px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;transition:background .2s}
+.fmt-card:hover .fmt-arr{background:var(--amber)}
+.fvial-box{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fvial-box .box-tag{background:var(--amber);color:#fff;font-size:8px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:1px}
+.fvial{width:65px;height:105px;background:rgba(255,255,255,.65);border-radius:6px 6px 18px 18px;border:1px solid rgba(181,98,42,.25)}
+.fpen{width:148px;height:42px;background:rgba(255,255,255,.8);border-radius:21px;margin:72px auto;border:1px solid rgba(0,0,0,.08)}
+.fspray{width:50px;height:128px;background:rgba(181,98,42,.35);border-radius:8px 8px 6px 6px;margin:0 auto;position:relative}
+.fspray::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:17px;height:24px;background:rgba(255,255,255,.75);border-radius:4px 4px 0 0}
+
+/* ═══ PRODUCT GRID SECTION ═══ */
+.prod-section{padding:0 80px 100px}
+.filter-row{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--grey-l)}
+.filter-btn{padding:8px 18px;border-radius:50px;border:1.5px solid var(--grey-l);background:transparent;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--dark);transition:all .2s}
+.filter-btn:hover{border-color:var(--dark)}
+.filter-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prod-card{background:#fff;border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative}
+.prod-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.1)}
+.prod-card[data-cat]{display:block}
+.prod-card.hidden{display:none}
+.rating-badge{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.95);border-radius:20px;padding:4px 9px;font-size:11.5px;font-weight:700;display:flex;align-items:center;gap:3px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.rating-badge .star{color:var(--amber)}
+.prod-img{height:210px;background:linear-gradient(145deg,#F0E8DF,#E8D5C0);display:flex;align-items:center;justify-content:center;padding:20px}
+.prod-img.lb{background:linear-gradient(145deg,#EEEAE4,#E5DDD5)}
+/* product image placeholders */
+.p-vial{display:flex;flex-direction:column;align-items:center;gap:6px}
+.p-vial .pv-box{background:var(--amber);color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.8px}
+.p-vial .pv-vial{width:60px;height:95px;background:rgba(255,255,255,.7);border-radius:5px 5px 16px 16px;border:1px solid rgba(181,98,42,.2)}
+.p-pen{width:130px;height:38px;background:rgba(255,255,255,.85);border-radius:19px;border:1px solid rgba(0,0,0,.08)}
+.p-spray{width:44px;height:110px;background:rgba(181,98,42,.3);border-radius:7px 7px 5px 5px;position:relative;margin:0 auto}
+.p-spray::before{content:'';position:absolute;top:-15px;left:50%;transform:translateX(-50%);width:15px;height:20px;background:rgba(255,255,255,.7);border-radius:3px 3px 0 0}
+.prod-body{padding:16px}
+.prod-name{font-size:15px;font-weight:700;margin-bottom:8px}
+.dose-badge{display:inline-block;background:var(--amber);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:5px;margin-bottom:10px;letter-spacing:.5px}
+.prod-price{font-size:15px;font-weight:800;color:var(--dark)}
+.prod-price .from{font-size:11px;font-weight:500;color:var(--grey);margin-right:4px;text-transform:uppercase;letter-spacing:1px}
+
+/* ═══ CART DRAWER ═══ */
+#c-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s}
+#c-overlay.on{opacity:1;pointer-events:all}
+#c-drawer{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;background:#fff;z-index:401;transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+#c-drawer.open{right:0}
+.cd-head{padding:22px;border-bottom:1px solid var(--cream2);display:flex;justify-content:space-between;align-items:center}
+.cd-head h3{font-size:17px;font-weight:800}
+.cd-close{width:34px;height:34px;background:var(--cream);border:none;border-radius:50%;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}
+.cd-empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--grey);font-size:15px}
+.cd-foot{padding:18px 22px;border-top:1px solid var(--cream2)}
+.btn-to-cart{display:block;width:100%;padding:15px;background:var(--amber);color:#fff;border:none;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;text-align:center;font-family:inherit;transition:background .2s}
+.btn-to-cart:hover{background:var(--amber-l)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--cream2);padding:56px 80px 0}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.ft-logo{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:900;letter-spacing:-.4px;margin-bottom:16px}
+.ft-tag{font-size:13px;line-height:1.72;color:var(--grey);max-width:268px}
+.ft-col h4{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:16px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-col ul a{font-size:13.5px;color:var(--dark);font-weight:500;transition:color .15s}
+.ft-col ul a:hover{color:var(--amber)}
+.ft-disc{border-top:1px solid var(--grey-l);padding:20px 0;font-size:10.5px;line-height:1.75;color:var(--grey);max-width:780px}
+.ft-bot{border-top:1px solid var(--grey-l);padding:16px 0;display:flex;justify-content:space-between;align-items:center}
+.ft-bot span{font-size:11.5px;color:var(--grey);font-weight:500}
+
+@media(max-width:900px){
+  nav{padding:0 18px}
+  .fmt-section,.prod-section{padding-left:20px;padding-right:20px}
+  .fmt-grid,.prod-grid{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:32px}
+  footer{padding:48px 22px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="anbar"><span class="ticker">★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity &nbsp;·&nbsp; COA on Every Product &nbsp;·&nbsp;&nbsp;★ HOUSE OF PEPS — Lab-Verified Research Peptides &nbsp;·&nbsp; UAE & GCC Cold-Chain Delivery &nbsp;·&nbsp; ≥99% Purity &nbsp;·&nbsp; COA on Every Product</span></div>
+
+<!-- NAV -->
+<nav>
+  <a href="hop-index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="6.5" stroke="#B5622A" stroke-width="2"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(60 18 18)"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(120 18 18)"/><circle cx="18" cy="18" r="2.8" fill="#B5622A"/></svg>
+    HOUSE OF PEPS
+  </a>
+  <ul class="nav-links">
+    <li><a href="hop-peptides.html" class="active">Peptides</a></li>
+    <li><a href="#">BAC Water</a></li>
+    <li><a href="#">Lab Tests</a></li>
+    <li><a href="#">Peptide Calculator</a></li>
+    <li>
+      <button>More ↓</button>
+      <ul class="ddmenu">
+        <li><a href="#">Track My Order</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="hop-blog.html">Blog</a></li>
+        <li><a href="#">Become An Affiliate</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="nav-icons">
+    <button class="icon-btn"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="m14 14 3.5 3.5"/></svg></button>
+    <button class="icon-btn" onclick="location.href='hop-login.html'"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+    <button class="icon-btn"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+    <button class="icon-btn" id="cart-btn"><svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-dot">0</span></button>
+  </div>
+</nav>
+
+<!-- ═══ FORMAT CARDS ═══ -->
+<section class="fmt-section">
+  <div class="sec-ey">RESEARCH PEPTIDES · UAE & GCC</div>
+  <h1>Choose your format</h1>
+  <div class="fmt-grid">
+    <a href="#" class="fmt-card" onclick="setFilter('vials');return false">
+      <div class="fmt-img ab">
+        <div class="fvial-box"><div class="box-tag">HOUSE OF PEPS</div><div class="fvial"></div></div>
+      </div>
+      <div class="fmt-foot"><span class="fn">Vials</span><div class="fmt-arr">→</div></div>
+    </a>
+    <a href="#" class="fmt-card" onclick="setFilter('pens');return false">
+      <div class="fmt-img lb"><div class="fpen"></div></div>
+      <div class="fmt-foot"><span class="fn">Pens</span><div class="fmt-arr">→</div></div>
+    </a>
+    <a href="#" class="fmt-card" onclick="setFilter('sprays');return false">
+      <div class="fmt-img lb"><div class="fspray"></div></div>
+      <div class="fmt-foot"><span class="fn">Sprays</span><div class="fmt-arr">→</div></div>
+    </a>
+  </div>
+
+  <!-- FILTER TOGGLE + GRID -->
+  <div class="prod-section" style="padding:0">
+    <div class="filter-row">
+      <button class="filter-btn active" data-f="all" onclick="setFilter('all')">All</button>
+      <button class="filter-btn" data-f="vials" onclick="setFilter('vials')">Vials</button>
+      <button class="filter-btn" data-f="pens" onclick="setFilter('pens')">Pens</button>
+      <button class="filter-btn" data-f="sprays" onclick="setFilter('sprays')">Sprays</button>
+    </div>
+
+    <div class="prod-grid" id="prod-grid">
+
+      <!-- VIALS -->
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (35)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">GLP-3 (Reta)</div>
+          <div class="dose-badge">10 / 30 MG</div>
+          <div class="prod-price"><span class="from">FROM</span>390.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (12)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">GHK-Cu</div>
+          <div class="dose-badge">50 MG</div>
+          <div class="prod-price">190.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (3)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">MOTS-c</div>
+          <div class="dose-badge">10 / 40 MG</div>
+          <div class="prod-price"><span class="from">FROM</span>220.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 4.8 (5)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Tesamorelin</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">460.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (5)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">BPC-157</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">240.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 4.9 (10)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">KLOW Blend</div>
+          <div class="dose-badge">80 MG</div>
+          <div class="prod-price">560.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (6)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">TB-500</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">340.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (4)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Sermorelin</div>
+          <div class="dose-badge">10 / 5 MG</div>
+          <div class="prod-price"><span class="from">FROM</span>170.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="vials">
+        <span class="rating-badge"><span class="star">★</span> 4.9 (8)</span>
+        <div class="prod-img"><div class="p-vial"><div class="pv-box">HOUSE OF PEPS</div><div class="pv-vial"></div></div></div>
+        <div class="prod-body">
+          <div class="prod-name">GLOW Blend</div>
+          <div class="dose-badge">70 MG</div>
+          <div class="prod-price">470.00 AED</div>
+        </div>
+      </a>
+
+      <!-- PENS -->
+      <a href="hop-product.html" class="prod-card" data-cat="pens">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (35)</span>
+        <div class="prod-img lb"><div class="p-pen"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">GLP-3 (Reta) Pen</div>
+          <div class="dose-badge">10 / 30 MG</div>
+          <div class="prod-price"><span class="from">FROM</span>720.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="pens">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (12)</span>
+        <div class="prod-img lb"><div class="p-pen"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">GHK-Cu Pen</div>
+          <div class="dose-badge">50 MG</div>
+          <div class="prod-price">520.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="pens">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (3)</span>
+        <div class="prod-img lb"><div class="p-pen"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">MOTS-c Pen</div>
+          <div class="dose-badge">10 / 40 MG</div>
+          <div class="prod-price"><span class="from">FROM</span>550.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="pens">
+        <span class="rating-badge"><span class="star">★</span> 4.8 (5)</span>
+        <div class="prod-img lb"><div class="p-pen"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Tesamorelin Pen</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">790.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="pens">
+        <span class="rating-badge"><span class="star">★</span> 5.0 (5)</span>
+        <div class="prod-img lb"><div class="p-pen"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">BPC-157 Pen</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">570.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="pens">
+        <span class="rating-badge"><span class="star">★</span> 4.9 (10)</span>
+        <div class="prod-img lb"><div class="p-pen"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">KLOW Blend Pen</div>
+          <div class="dose-badge">80 MG</div>
+          <div class="prod-price">890.00 AED</div>
+        </div>
+      </a>
+
+      <!-- SPRAYS -->
+      <a href="hop-product.html" class="prod-card" data-cat="sprays">
+        <div class="prod-img lb"><div class="p-spray"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Semax Nasal Spray</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">545.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="sprays">
+        <div class="prod-img lb"><div class="p-spray"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Selank Nasal Spray</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">545.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="sprays">
+        <div class="prod-img lb"><div class="p-spray"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">KPV Nasal Spray</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">620.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="sprays">
+        <div class="prod-img lb"><div class="p-spray"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Epithalon Nasal Spray</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">500.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="sprays">
+        <div class="prod-img lb"><div class="p-spray"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">DSIP Nasal Spray</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">710.00 AED</div>
+        </div>
+      </a>
+
+      <a href="hop-product.html" class="prod-card" data-cat="sprays">
+        <div class="prod-img lb"><div class="p-spray"></div></div>
+        <div class="prod-body">
+          <div class="prod-name">Semax &amp; Selank Blend Nasal Spray</div>
+          <div class="dose-badge">10 MG</div>
+          <div class="prod-price">981.00 AED</div>
+        </div>
+      </a>
+
+    </div><!-- /prod-grid -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo">
+        <svg width="24" height="24" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="6.5" stroke="#B5622A" stroke-width="2"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(60 18 18)"/><ellipse cx="18" cy="18" rx="17" ry="6.5" stroke="#B5622A" stroke-width="1.5" transform="rotate(120 18 18)"/><circle cx="18" cy="18" r="2.8" fill="#B5622A"/></svg>
+        HOUSE OF PEPS
+      </div>
+      <p class="ft-tag">Lab-verified research peptides for the UAE and GCC. COA on every order — cold-chain delivered to Dubai, Abu Dhabi and across the Gulf.</p>
+    </div>
+    <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="#">Bestsellers</a></li><li><a href="hop-peptides.html">Peptides</a></li><li><a href="#">Bacteriostatic Water</a></li><li><a href="#">Lab Tests</a></li><li><a href="#">Peptide Calculator</a></li></ul></div>
+    <div class="ft-col"><h4>House of Peps</h4><ul><li><a href="#">Order Tracking</a></li><li><a href="#">Wholesale</a></li><li><a href="#">Become an Affiliate</a></li><li><a href="#">About Us</a></li><li><a href="hop-blog.html">Blog</a></li><li><a href="#">Contact Us</a></li></ul></div>
+    <div class="ft-col"><h4>General</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Shipping</a></li><li><a href="#">Refunds</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="ft-disc">Products from this website are NOT intended to be used to diagnose or treat any medical condition or disease. Products are sold for laboratory research purposes only and are for in-vitro lab research use only.</div>
+  <div class="ft-bot"><span>© 2026 House of Peps. All rights reserved.</span><span>FOR RESEARCH USE ONLY</span></div>
+</footer>
+
+<!-- CART DRAWER -->
+<div id="c-overlay"></div>
+<div id="c-drawer">
+  <div class="cd-head"><h3>Your Cart (0)</h3><button class="cd-close" id="cd-close">✕</button></div>
+  <div class="cd-empty">Your cart is empty</div>
+  <div class="cd-foot"><a href="hop-cart.html" class="btn-to-cart">View Cart</a></div>
+</div>
+
+<script>
+// Filter
+function setFilter(f){
+  document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.toggle('active',b.dataset.f===f||(f==='all'&&b.dataset.f==='all'))});
+  document.querySelectorAll('.prod-card').forEach(c=>{
+    c.classList.toggle('hidden', f!=='all' && c.dataset.cat!==f);
+  });
+  // scroll to grid
+  document.getElementById('prod-grid').scrollIntoView({behavior:'smooth',block:'start'});
+}
+// URL param
+const urlF=new URLSearchParams(location.search).get('f');
+if(urlF) setFilter(urlF);
+
+// Cart
+const cb=document.getElementById('cart-btn'),co=document.getElementById('c-overlay'),cd=document.getElementById('c-drawer'),cc=document.getElementById('cd-close');
+cb.onclick=()=>{cd.classList.add('open');co.classList.add('on')};
+cc.onclick=co.onclick=()=>{cd.classList.remove('open');co.classList.remove('on')};
+</script>
+</body>
+</html>
